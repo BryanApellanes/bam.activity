@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "bag": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

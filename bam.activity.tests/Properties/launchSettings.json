@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "bam.activity.tests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
