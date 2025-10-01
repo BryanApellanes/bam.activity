@@ -21,20 +21,42 @@ namespace Bag
             foreach(VocabularyTypeDefinition typeDefinition in lookup.TypeDefinitions)
             {
                 VocabularyModel model = new VocabularyModel(lookup, typeDefinition, config.TargetNamespace);
-                string code = handlebarsEmbeddedResources.Render("Object", model);
-                Message.PrintLine(code, ConsoleColor.Blue);
-                FileInfo file = new FileInfo(Path.Combine(config.CodeDirectory, $"{typeDefinition.Name}.cs"));
-                if(file.Exists)
-                {
-                    file.Delete();
-                }
-                if(!file.Directory.Exists)
-                {
-                    file.Directory.Create();
-                }
-                File.WriteAllText(file.FullName, code);
+                WriteClass(handlebarsEmbeddedResources, typeDefinition, model);
+                WriteInterface(handlebarsEmbeddedResources, typeDefinition, model);
             }
 
+        }
+
+        private void WriteClass(HandlebarsEmbeddedResources handlebarsEmbeddedResources, VocabularyTypeDefinition typeDefinition, VocabularyModel model)
+        {
+            string classCode = handlebarsEmbeddedResources.Render("Object", model);
+            Message.PrintLine(classCode, ConsoleColor.Blue);
+            FileInfo file = new FileInfo(Path.Combine(config.CodeDirectory, $"{typeDefinition.Name}.cs"));
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+            if (!file.Directory.Exists)
+            {
+                file.Directory.Create();
+            }
+            File.WriteAllText(file.FullName, classCode);
+        }
+
+        private void WriteInterface(HandlebarsEmbeddedResources handlebarsEmbeddedResources, VocabularyTypeDefinition typeDefinition, VocabularyModel model)
+        {
+            string classCode = handlebarsEmbeddedResources.Render("Interface", model);
+            Message.PrintLine(classCode, ConsoleColor.Blue);
+            FileInfo file = new FileInfo(Path.Combine(config.CodeDirectory, $"I{typeDefinition.Name}.cs"));
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+            if (!file.Directory.Exists)
+            {
+                file.Directory.Create();
+            }
+            File.WriteAllText(file.FullName, classCode);
         }
     }
 }

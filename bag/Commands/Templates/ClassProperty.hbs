@@ -1,1 +1,12 @@
-        public object? {{ClassPropertyName}} => Property("{{PropertyName}}");
+        public object? {{ClassPropertyName}}
+        {
+            get
+            {
+                return Property("{{PropertyName}}");
+            }
+            set
+            {
+                Property("{{PropertyName}}", value);
+            }
+        }
+    

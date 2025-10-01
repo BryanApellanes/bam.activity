@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Announce : Activity
+    public class Announce : Activity, IAnnounce
     {
         public Announce(IdHost idHost) : base(idHost)
         {

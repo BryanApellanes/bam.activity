@@ -10,12 +10,16 @@
   <ItemGroup>
     <None Remove="Commands\Templates\AddProperty.hbs" />
     <None Remove="Commands\Templates\ClassProperty.hbs" />
+    <None Remove="Commands\Templates\Interface.hbs" />
+    <None Remove="Commands\Templates\InterfaceProperty.hbs" />
     <None Remove="Commands\Templates\Object.hbs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Commands\Templates\AddProperty.hbs" />
     <EmbeddedResource Include="Commands\Templates\ClassProperty.hbs" />
+    <EmbeddedResource Include="Commands\Templates\Interface.hbs" />
+    <EmbeddedResource Include="Commands\Templates\InterfaceProperty.hbs" />
     <EmbeddedResource Include="Commands\Templates\Object.hbs" />
   </ItemGroup>
 

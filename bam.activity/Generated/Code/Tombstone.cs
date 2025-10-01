@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Tombstone : Object
+    public class Tombstone : Object, ITombstone
     {
         public Tombstone(IdHost idHost) : base(idHost)
         {
@@ -9,9 +9,42 @@ namespace Bam.Activity.Vocabulary
             this.Property("Object", null, true);
         }
 
-        public object? FormerType => Property("formerType");
-        public object? Deleted => Property("deleted");
-        public object? Object => Property("Object");
+        public object? FormerType
+        {
+            get
+            {
+                return Property("formerType");
+            }
+            set
+            {
+                Property("formerType", value);
+            }
+        }
+    
+        public object? Deleted
+        {
+            get
+            {
+                return Property("deleted");
+            }
+            set
+            {
+                Property("deleted", value);
+            }
+        }
+    
+        public object? Object
+        {
+            get
+            {
+                return Property("Object");
+            }
+            set
+            {
+                Property("Object", value);
+            }
+        }
+    
 
     }
 }

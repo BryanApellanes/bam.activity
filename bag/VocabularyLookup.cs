@@ -15,6 +15,7 @@ namespace Bag
         public VocabularyLookup() { }
 
         public VocabularyTypeDefinition[] TypeDefinitions => _typeDefinitions.Values.ToArray();
+        public VocabularyPropertyDefinition[] PropertyDefinitions => _propertyDefinitions.Values.ToArray();
 
         public VocabularyPropertyDefinition? GetPropertyDefinition(string propertyName)
         {

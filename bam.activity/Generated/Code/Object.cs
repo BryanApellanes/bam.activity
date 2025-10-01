@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Object : ObjectBase
+    public class Object : VocabularyObjectRoot
     {
         public Object(IdHost idHost) : base(idHost)
         {
@@ -32,32 +32,318 @@ namespace Bam.Activity.Vocabulary
             this.Property("duration", null, true);
         }
 
-        public object? Attachment => Property("attachment");
-        public object? AttributedTo => Property("attributedTo");
-        public object? Audience => Property("audience");
-        public object? Content => Property("content");
-        public object? Context => Property("context");
-        public object? Name => Property("name");
-        public object? EndTime => Property("endTime");
-        public object? Generator => Property("generator");
-        public object? Icon => Property("icon");
-        public object? Image => Property("image");
-        public object? InReplyTo => Property("inReplyTo");
-        public object? Location => Property("location");
-        public object? Preview => Property("preview");
-        public object? Published => Property("published");
-        public object? Replies => Property("replies");
-        public object? StartTime => Property("startTime");
-        public object? Summary => Property("summary");
-        public object? Tag => Property("tag");
-        public object? Updated => Property("updated");
-        public object? Url => Property("url");
-        public object? To => Property("to");
-        public object? Bto => Property("bto");
-        public object? Cc => Property("cc");
-        public object? Bcc => Property("bcc");
-        public object? MediaType => Property("mediaType");
-        public object? Duration => Property("duration");
+        public object? Attachment
+        {
+            get
+            {
+                return Property("attachment");
+            }
+            set
+            {
+                Property("attachment", value);
+            }
+        }
+    
+        public object? AttributedTo
+        {
+            get
+            {
+                return Property("attributedTo");
+            }
+            set
+            {
+                Property("attributedTo", value);
+            }
+        }
+    
+        public object? Audience
+        {
+            get
+            {
+                return Property("audience");
+            }
+            set
+            {
+                Property("audience", value);
+            }
+        }
+    
+        public object? Content
+        {
+            get
+            {
+                return Property("content");
+            }
+            set
+            {
+                Property("content", value);
+            }
+        }
+    
+        public object? Context
+        {
+            get
+            {
+                return Property("context");
+            }
+            set
+            {
+                Property("context", value);
+            }
+        }
+    
+        public object? Name
+        {
+            get
+            {
+                return Property("name");
+            }
+            set
+            {
+                Property("name", value);
+            }
+        }
+    
+        public object? EndTime
+        {
+            get
+            {
+                return Property("endTime");
+            }
+            set
+            {
+                Property("endTime", value);
+            }
+        }
+    
+        public object? Generator
+        {
+            get
+            {
+                return Property("generator");
+            }
+            set
+            {
+                Property("generator", value);
+            }
+        }
+    
+        public object? Icon
+        {
+            get
+            {
+                return Property("icon");
+            }
+            set
+            {
+                Property("icon", value);
+            }
+        }
+    
+        public object? Image
+        {
+            get
+            {
+                return Property("image");
+            }
+            set
+            {
+                Property("image", value);
+            }
+        }
+    
+        public object? InReplyTo
+        {
+            get
+            {
+                return Property("inReplyTo");
+            }
+            set
+            {
+                Property("inReplyTo", value);
+            }
+        }
+    
+        public object? Location
+        {
+            get
+            {
+                return Property("location");
+            }
+            set
+            {
+                Property("location", value);
+            }
+        }
+    
+        public object? Preview
+        {
+            get
+            {
+                return Property("preview");
+            }
+            set
+            {
+                Property("preview", value);
+            }
+        }
+    
+        public object? Published
+        {
+            get
+            {
+                return Property("published");
+            }
+            set
+            {
+                Property("published", value);
+            }
+        }
+    
+        public object? Replies
+        {
+            get
+            {
+                return Property("replies");
+            }
+            set
+            {
+                Property("replies", value);
+            }
+        }
+    
+        public object? StartTime
+        {
+            get
+            {
+                return Property("startTime");
+            }
+            set
+            {
+                Property("startTime", value);
+            }
+        }
+    
+        public object? Summary
+        {
+            get
+            {
+                return Property("summary");
+            }
+            set
+            {
+                Property("summary", value);
+            }
+        }
+    
+        public object? Tag
+        {
+            get
+            {
+                return Property("tag");
+            }
+            set
+            {
+                Property("tag", value);
+            }
+        }
+    
+        public object? Updated
+        {
+            get
+            {
+                return Property("updated");
+            }
+            set
+            {
+                Property("updated", value);
+            }
+        }
+    
+        public object? Url
+        {
+            get
+            {
+                return Property("url");
+            }
+            set
+            {
+                Property("url", value);
+            }
+        }
+    
+        public object? To
+        {
+            get
+            {
+                return Property("to");
+            }
+            set
+            {
+                Property("to", value);
+            }
+        }
+    
+        public object? Bto
+        {
+            get
+            {
+                return Property("bto");
+            }
+            set
+            {
+                Property("bto", value);
+            }
+        }
+    
+        public object? Cc
+        {
+            get
+            {
+                return Property("cc");
+            }
+            set
+            {
+                Property("cc", value);
+            }
+        }
+    
+        public object? Bcc
+        {
+            get
+            {
+                return Property("bcc");
+            }
+            set
+            {
+                Property("bcc", value);
+            }
+        }
+    
+        public object? MediaType
+        {
+            get
+            {
+                return Property("mediaType");
+            }
+            set
+            {
+                Property("mediaType", value);
+            }
+        }
+    
+        public object? Duration
+        {
+            get
+            {
+                return Property("duration");
+            }
+            set
+            {
+                Property("duration", value);
+            }
+        }
+    
 
     }
 }

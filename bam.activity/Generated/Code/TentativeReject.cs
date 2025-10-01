@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class TentativeReject : Reject
+    public class TentativeReject : Reject, ITentativeReject
     {
         public TentativeReject(IdHost idHost) : base(idHost)
         {

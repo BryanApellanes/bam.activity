@@ -5,7 +5,7 @@ Notes: >-
                 OrderedCollection. Refer to the
                 Activity Streams 2.0 Core for a complete description of the
                 OrderedCollectionPage object.
-Extends: OrderedCollection
+Extends: OrderedCollection, CollectionPage
 Properties:
   - startIndex
   - OrderedCollection

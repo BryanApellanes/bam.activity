@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bam.Activity  
 {
-    public interface IObject
+    public interface IVocabularyObjectRoot
     {
         string ToJson();  
         IEnumerable<IProperty> Properties { get; }

@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Collection : Object
+    public class Collection : Object, ICollection
     {
         public Collection(IdHost idHost) : base(idHost)
         {
@@ -12,12 +12,78 @@ namespace Bam.Activity.Vocabulary
             this.Property("Object", null, true);
         }
 
-        public object? TotalItems => Property("totalItems");
-        public object? Current => Property("current");
-        public object? First => Property("first");
-        public object? Last => Property("last");
-        public object? Items => Property("items");
-        public object? Object => Property("Object");
+        public object? TotalItems
+        {
+            get
+            {
+                return Property("totalItems");
+            }
+            set
+            {
+                Property("totalItems", value);
+            }
+        }
+    
+        public object? Current
+        {
+            get
+            {
+                return Property("current");
+            }
+            set
+            {
+                Property("current", value);
+            }
+        }
+    
+        public object? First
+        {
+            get
+            {
+                return Property("first");
+            }
+            set
+            {
+                Property("first", value);
+            }
+        }
+    
+        public object? Last
+        {
+            get
+            {
+                return Property("last");
+            }
+            set
+            {
+                Property("last", value);
+            }
+        }
+    
+        public object? Items
+        {
+            get
+            {
+                return Property("items");
+            }
+            set
+            {
+                Property("items", value);
+            }
+        }
+    
+        public object? Object
+        {
+            get
+            {
+                return Property("Object");
+            }
+            set
+            {
+                Property("Object", value);
+            }
+        }
+    
 
     }
 }

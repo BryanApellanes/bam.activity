@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Profile : Object
+    public class Profile : Object, IProfile
     {
         public Profile(IdHost idHost) : base(idHost)
         {
@@ -8,8 +8,30 @@ namespace Bam.Activity.Vocabulary
             this.Property("Object", null, true);
         }
 
-        public object? Describes => Property("describes");
-        public object? Object => Property("Object");
+        public object? Describes
+        {
+            get
+            {
+                return Property("describes");
+            }
+            set
+            {
+                Property("describes", value);
+            }
+        }
+    
+        public object? Object
+        {
+            get
+            {
+                return Property("Object");
+            }
+            set
+            {
+                Property("Object", value);
+            }
+        }
+    
 
     }
 }

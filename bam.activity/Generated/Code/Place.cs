@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Place : Object
+    public class Place : Object, IPlace
     {
         public Place(IdHost idHost) : base(idHost)
         {
@@ -13,13 +13,90 @@ namespace Bam.Activity.Vocabulary
             this.Property("Object", null, true);
         }
 
-        public object? Accuracy => Property("accuracy");
-        public object? Altitude => Property("altitude");
-        public object? Latitude => Property("latitude");
-        public object? Longitude => Property("longitude");
-        public object? Radius => Property("radius");
-        public object? Units => Property("units");
-        public object? Object => Property("Object");
+        public object? Accuracy
+        {
+            get
+            {
+                return Property("accuracy");
+            }
+            set
+            {
+                Property("accuracy", value);
+            }
+        }
+    
+        public object? Altitude
+        {
+            get
+            {
+                return Property("altitude");
+            }
+            set
+            {
+                Property("altitude", value);
+            }
+        }
+    
+        public object? Latitude
+        {
+            get
+            {
+                return Property("latitude");
+            }
+            set
+            {
+                Property("latitude", value);
+            }
+        }
+    
+        public object? Longitude
+        {
+            get
+            {
+                return Property("longitude");
+            }
+            set
+            {
+                Property("longitude", value);
+            }
+        }
+    
+        public object? Radius
+        {
+            get
+            {
+                return Property("radius");
+            }
+            set
+            {
+                Property("radius", value);
+            }
+        }
+    
+        public object? Units
+        {
+            get
+            {
+                return Property("units");
+            }
+            set
+            {
+                Property("units", value);
+            }
+        }
+    
+        public object? Object
+        {
+            get
+            {
+                return Property("Object");
+            }
+            set
+            {
+                Property("Object", value);
+            }
+        }
+    
 
     }
 }

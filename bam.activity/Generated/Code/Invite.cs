@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Invite : Offer
+    public class Invite : Offer, IInvite
     {
         public Invite(IdHost idHost) : base(idHost)
         {

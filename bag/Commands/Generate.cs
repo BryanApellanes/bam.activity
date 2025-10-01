@@ -52,6 +52,28 @@ namespace Bag.Commands
             Message.PrintLine("Config file created at {0}", new FileInfo(config.ConfigPath).FullName);
         }
 
+        [ConsoleCommand("Show extends")]
+        [MenuItem]
+        public async Task ShowExtends()
+        {
+            VocabularyLookup vocabularyLookup = VocabularyLookup.Load(Get<BamVocabularyGeneratorConfig>().DefinitionsDirectory);
+            foreach(VocabularyTypeDefinition typeDefinition in vocabularyLookup.TypeDefinitions)
+            {
+                Message.PrintLine("{0} : {1}", typeDefinition.Name, typeDefinition.Extends);
+            }
+        }
+
+        [ConsoleCommand("Show ranges")]
+        [MenuItem]
+        public async Task ShowRanges()
+        {
+            VocabularyLookup vocabularyLookup = VocabularyLookup.Load(Get<BamVocabularyGeneratorConfig>().DefinitionsDirectory);
+            foreach(VocabularyPropertyDefinition propertyDefinition in vocabularyLookup.PropertyDefinitions)
+            {
+                Message.PrintLine("{0} : {1}", propertyDefinition.Name, string.Join(", ", propertyDefinition.Range));
+            }
+        }
+
         [ConsoleCommand("Generate vocabulary code")]
         [MenuItem]
         public async Task GenerateCode()
@@ -305,7 +327,7 @@ namespace Bag.Commands
                     }
                     else if (cellText.Equals("Extends:"))
                     {
-                        vocabulary.Extends = CQ.Create(cells[i + 1])["a"].First().Text().Trim();
+                        vocabulary.Extends = string.Join(", ", CQ.Create(cells[i + 1])["a"].Select(d => d.InnerText).ToArray());
                     }
                     else if (cellText.Equals("Properties:"))
                     {

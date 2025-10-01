@@ -6,12 +6,12 @@ using Bam;
 
 namespace Bam.Activity.Vocabulary
 {
-    public abstract class ObjectBase : IObject
+    public abstract class VocabularyObjectRoot : IVocabularyObjectRoot
     {
         List<IProperty> _properties = new List<IProperty>();
         IdHost _idHost;
 
-        public ObjectBase(IdHost idHost)
+        public VocabularyObjectRoot(IdHost idHost)
         {
             _properties.Add(new Property("@context", ActivityStreams.Context, true));
             _properties.Add(new Property("type", this.GetType().Name, true));

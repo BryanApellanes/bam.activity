@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class Activity : Object
+    public class Activity : Object, IActivity
     {
         public Activity(IdHost idHost) : base(idHost)
         {
@@ -12,12 +12,78 @@ namespace Bam.Activity.Vocabulary
             this.Property("instrument", null, false);
         }
 
-        public object? Actor => Property("actor");
-        public object? Object => Property("object");
-        public object? Target => Property("target");
-        public object? Result => Property("result");
-        public object? Origin => Property("origin");
-        public object? Instrument => Property("instrument");
+        public object? Actor
+        {
+            get
+            {
+                return Property("actor");
+            }
+            set
+            {
+                Property("actor", value);
+            }
+        }
+    
+        public object? Object
+        {
+            get
+            {
+                return Property("object");
+            }
+            set
+            {
+                Property("object", value);
+            }
+        }
+    
+        public object? Target
+        {
+            get
+            {
+                return Property("target");
+            }
+            set
+            {
+                Property("target", value);
+            }
+        }
+    
+        public object? Result
+        {
+            get
+            {
+                return Property("result");
+            }
+            set
+            {
+                Property("result", value);
+            }
+        }
+    
+        public object? Origin
+        {
+            get
+            {
+                return Property("origin");
+            }
+            set
+            {
+                Property("origin", value);
+            }
+        }
+    
+        public object? Instrument
+        {
+            get
+            {
+                return Property("instrument");
+            }
+            set
+            {
+                Property("instrument", value);
+            }
+        }
+    
 
     }
 }

@@ -1,6 +1,6 @@
 namespace Bam.Activity.Vocabulary
 {
-    public class OrderedCollection : Collection
+    public class OrderedCollection : Collection, IOrderedCollection
     {
         public OrderedCollection(IdHost idHost) : base(idHost)
         {
