@@ -1,0 +1,8 @@
+Name: latitude
+Uri: https://www.w3.org/ns/activitystreams#latitude
+Notes: The latitude of a place
+Domain: Place
+Range:
+  - xsd:float
+IsFunctional: true
+SubPropertyOf: 

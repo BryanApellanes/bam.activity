@@ -1,0 +1,9 @@
+Name: inReplyTo
+Uri: https://www.w3.org/ns/activitystreams#inReplyTo
+Notes: Indicates one or more entities for which this object is considered a response.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

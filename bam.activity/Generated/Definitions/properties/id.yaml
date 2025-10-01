@@ -1,0 +1,10 @@
+Name: id
+Uri: '@id'
+Notes: >-
+  Provides the globally unique identifier for an Object or
+              Link.
+Domain: ObjectLink
+Range:
+  - anyURI
+IsFunctional: true
+SubPropertyOf: 

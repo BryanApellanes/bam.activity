@@ -1,0 +1,12 @@
+Name: Note
+Uri: https://www.w3.org/ns/activitystreams#Note
+Notes: Represents a short written work typically less than a single paragraph in length.
+Extends: Object
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "type": "Note",
+    "name": "A Word of Warning",
+    "content": "Looks like it is going to rain today. Bring an umbrella!"
+  }

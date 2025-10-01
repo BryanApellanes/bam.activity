@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bag
+namespace Bag
 {
     public class VocabularyTypeDefinition
     {
@@ -12,7 +12,7 @@ namespace bag
         public string Uri { get; set; }
         public string Notes { get; set; }
         public string Extends { get; set; }
-        public List<string> Properties { get; set; } = new List<string>();
+        public HashSet<string> Properties { get; set; } = new HashSet<string>();
         public string Example { get; set; }
     }
 }

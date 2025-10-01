@@ -1,0 +1,19 @@
+Name: Ignore
+Uri: https://www.w3.org/ns/activitystreams#Ignore
+Notes: >-
+  Indicates that the actor is ignoring the
+                object. The target and
+                origin typically have no defined meaning.
+Extends: Activity
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally ignored a note",
+    "type": "Ignore",
+    "actor": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "object": "http://example.org/notes/1"
+  }

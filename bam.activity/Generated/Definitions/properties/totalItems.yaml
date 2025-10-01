@@ -1,0 +1,8 @@
+Name: totalItems
+Uri: https://www.w3.org/ns/activitystreams#totalItems
+Notes: A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance.
+Domain: Collection
+Range:
+  - xsd:nonNegativeInteger
+IsFunctional: true
+SubPropertyOf: 

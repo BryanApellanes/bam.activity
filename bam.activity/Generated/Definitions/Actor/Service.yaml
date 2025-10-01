@@ -1,0 +1,11 @@
+Name: Service
+Uri: https://www.w3.org/ns/activitystreams#Service
+Notes: Represents a service of any kind.
+Extends: Object
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "type": "Service",
+    "name": "Acme Web Service"
+  }

@@ -1,0 +1,10 @@
+Name: formerType
+Uri: https://www.w3.org/ns/activitystreams#formerType
+Notes: >-
+  On a Tombstone object, the
+              formerType property identifies the type of the object that was deleted.
+Domain: Tombstone
+Range:
+  - Object
+IsFunctional: false
+SubPropertyOf: 

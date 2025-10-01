@@ -1,0 +1,8 @@
+Name: url
+Uri: https://www.w3.org/ns/activitystreams#url
+Notes: Identifies one or more links to representations of the object
+Domain: Object
+Range:
+  - Link
+IsFunctional: false
+SubPropertyOf: 

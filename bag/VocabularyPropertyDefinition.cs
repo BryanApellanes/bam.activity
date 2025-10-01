@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bag
+namespace Bag
 {
     public class VocabularyPropertyDefinition
     {
@@ -14,6 +14,7 @@ namespace bag
         public string Notes { get; set; }
         public string Domain { get; set; }
         public List<string> Range { get; set; } = new List<string>();
+        public bool IsFunctional { get; set; }
 
         public string SubPropertyOf { get; set; }
     }

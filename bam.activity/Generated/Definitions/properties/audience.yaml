@@ -1,0 +1,9 @@
+Name: audience
+Uri: https://www.w3.org/ns/activitystreams#audience
+Notes: Identifies one or more entities that represent the total population of entities for which the object can considered to be relevant.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

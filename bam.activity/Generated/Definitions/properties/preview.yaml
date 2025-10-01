@@ -1,0 +1,9 @@
+Name: preview
+Uri: https://www.w3.org/ns/activitystreams#preview
+Notes: Identifies an entity that provides a preview of this object.
+Domain: LinkObject
+Range:
+  - Link
+  - Object
+IsFunctional: false
+SubPropertyOf: 

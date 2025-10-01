@@ -1,0 +1,10 @@
+Name: accuracy
+Uri: https://www.w3.org/ns/activitystreams#accuracy
+Notes: >-
+  Indicates the accuracy of position coordinates on a
+              Place objects. Expressed in properties of percentage. e.g. "94.0" means "94.0% accurate".
+Domain: Place
+Range:
+  - xsd:float
+IsFunctional: true
+SubPropertyOf: 

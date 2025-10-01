@@ -1,0 +1,9 @@
+Name: object
+Uri: https://www.w3.org/ns/activitystreams#object
+Notes: "When used within an Activity, describes the direct object of the activity. For instance, in the activity \"John added a movie to his wishlist\", the object of the activity is the movie added.\n            \n            \n              When used within a Relationship describes the entity to which the subject is related."
+Domain: ActivityRelationship
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

@@ -1,0 +1,8 @@
+Name: published
+Uri: https://www.w3.org/ns/activitystreams#published
+Notes: The date and time at which the object was published
+Domain: Object
+Range:
+  - xsd:dateTime
+IsFunctional: true
+SubPropertyOf: 

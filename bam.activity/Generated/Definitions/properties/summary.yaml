@@ -1,0 +1,9 @@
+Name: summary
+Uri: https://www.w3.org/ns/activitystreams#summary
+Notes: A natural language summarization of the object encoded as HTML. Multiple language tagged summaries MAY be provided.
+Domain: Object
+Range:
+  - xsd:string
+  - rdf:langString
+IsFunctional: false
+SubPropertyOf: 

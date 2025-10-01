@@ -1,0 +1,9 @@
+Name: bto
+Uri: https://www.w3.org/ns/activitystreams#bto
+Notes: Identifies an Object that is part of the private primary audience of this Object.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

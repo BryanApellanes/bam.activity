@@ -1,0 +1,9 @@
+Name: name
+Uri: https://www.w3.org/ns/activitystreams#name
+Notes: A simple, human-readable, plain-text name for the object. HTML markup MUST NOT be included. The name MAY be expressed using multiple language-tagged values.
+Domain: ObjectLink
+Range:
+  - xsd:string
+  - rdf:langString
+IsFunctional: false
+SubPropertyOf: 

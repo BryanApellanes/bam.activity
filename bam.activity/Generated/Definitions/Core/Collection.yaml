@@ -1,0 +1,28 @@
+Name: Collection
+Uri: https://www.w3.org/ns/activitystreams#Collection
+Notes: "A Collection is a subtype of\n              Object that represents ordered or unordered sets of Object or Link instances.\n            \n            \n              Refer to the\n              Activity Streams 2.0 Core specification for a complete description of the\n              Collection type."
+Extends: Object
+Properties:
+  - totalItems
+  - current
+  - first
+  - last
+  - items
+  - Object
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally's notes",
+    "type": "Collection",
+    "totalItems": 2,
+    "items": [
+      {
+        "type": "Note",
+        "name": "A Simple Note"
+      },
+      {
+        "type": "Note",
+        "name": "Another Simple Note"
+      }
+    ]
+  }

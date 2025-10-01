@@ -1,0 +1,16 @@
+Name: Block
+Uri: https://www.w3.org/ns/activitystreams#Block
+Notes: >-
+  Indicates that the actor is blocking the
+                object. Blocking is a stronger form of
+                Ignore. The typical use is to support social systems that allow one user to block activities or content of other users. The target and origin typically have no defined meaning.
+Extends: Ignore
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally blocked Joe",
+    "type": "Block",
+    "actor": "http://sally.example.org",
+    "object": "http://joe.example.org"
+  }

@@ -1,0 +1,18 @@
+Name: Like
+Uri: https://www.w3.org/ns/activitystreams#Like
+Notes: >-
+  Indicates that the actor likes, recommends or endorses the object. The target and
+                  origin typically have no defined meaning.
+Extends: Activity
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally liked a note",
+    "type": "Like",
+    "actor": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "object": "http://example.org/notes/1"
+  }

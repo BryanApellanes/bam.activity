@@ -1,0 +1,9 @@
+Name: location
+Uri: https://www.w3.org/ns/activitystreams#location
+Notes: Indicates one or more physical or logical locations associated with the object.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

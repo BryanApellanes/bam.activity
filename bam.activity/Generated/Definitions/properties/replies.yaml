@@ -1,0 +1,8 @@
+Name: replies
+Uri: https://www.w3.org/ns/activitystreams#replies
+Notes: Identifies a Collection containing objects considered to be responses to this object.
+Domain: Object
+Range:
+  - Collection
+IsFunctional: true
+SubPropertyOf: 

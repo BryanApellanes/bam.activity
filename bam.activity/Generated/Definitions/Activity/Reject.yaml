@@ -1,0 +1,26 @@
+Name: Reject
+Uri: https://www.w3.org/ns/activitystreams#Reject
+Notes: >-
+  Indicates that the actor is rejecting the
+                object. The target and
+                origin typically have no defined meaning.
+Extends: Activity
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally rejected an invitation to a party",
+    "type": "Reject",
+    "actor": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "object": {
+      "type": "Invite",
+      "actor": "http://john.example.org",
+      "object": {
+        "type": "Event",
+        "name": "Going-Away Party for Jim"
+      }
+    }
+  }

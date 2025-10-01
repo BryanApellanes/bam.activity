@@ -1,0 +1,13 @@
+Name: Video
+Uri: https://www.w3.org/ns/activitystreams#Video
+Notes: Represents a video document of any kind.
+Extends: Document
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "type": "Video",
+    "name": "Puppy Plays With Ball",
+    "url": "http://example.org/video.mkv",
+    "duration": "PT2H"
+  }

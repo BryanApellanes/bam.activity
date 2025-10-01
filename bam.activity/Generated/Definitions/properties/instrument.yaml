@@ -1,0 +1,9 @@
+Name: instrument
+Uri: https://www.w3.org/ns/activitystreams#instrument
+Notes: Identifies one or more objects used (or to be used) in the completion of an Activity.
+Domain: Activity
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

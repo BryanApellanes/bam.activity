@@ -1,0 +1,9 @@
+Name: origin
+Uri: https://www.w3.org/ns/activitystreams#origin
+Notes: Describes an indirect object of the activity from which the activity is directed. The precise meaning of the origin is the object of the English preposition "from". For instance, in the activity "John moved an item to List B from List A", the origin of the activity is "List A".
+Domain: Activity
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

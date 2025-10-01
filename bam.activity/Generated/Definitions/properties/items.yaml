@@ -1,0 +1,11 @@
+Name: items
+Uri: https://www.w3.org/ns/activitystreams#items
+Notes: Identifies the items contained in a collection. The items might be ordered or unordered.
+Domain: Collection
+Range:
+  - Object
+  - Link
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

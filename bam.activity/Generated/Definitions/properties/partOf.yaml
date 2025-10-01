@@ -1,0 +1,11 @@
+Name: partOf
+Uri: https://www.w3.org/ns/activitystreams#partOf
+Notes: >-
+  Identifies the Collection to which a
+              CollectionPage objects items belong.
+Domain: CollectionPage
+Range:
+  - Link
+  - Collection
+IsFunctional: true
+SubPropertyOf: 

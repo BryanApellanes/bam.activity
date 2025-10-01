@@ -1,0 +1,9 @@
+Name: content
+Uri: https://www.w3.org/ns/activitystreams#content
+Notes: "The content or textual representation of the Object encoded as a JSON string. By default, the value of content is HTML. The mediaType property can be used in the object to indicate a different content type.\n            \n            \n              The content MAY be expressed using multiple language-tagged values."
+Domain: Object
+Range:
+  - xsd:string
+  - rdf:langString
+IsFunctional: false
+SubPropertyOf: 

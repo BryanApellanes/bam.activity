@@ -1,0 +1,18 @@
+Name: Listen
+Uri: https://www.w3.org/ns/activitystreams#Listen
+Notes: >-
+  Indicates that the actor has listened to the
+                object.
+Extends: Activity
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally listened to a piece of music",
+    "type": "Listen",
+    "actor": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "object": "http://example.org/music.mp3"
+  }

@@ -1,0 +1,8 @@
+Name: startIndex
+Uri: https://www.w3.org/ns/activitystreams#startIndex
+Notes: A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection.
+Domain: OrderedCollectionPage
+Range:
+  - xsd:nonNegativeInteger
+IsFunctional: true
+SubPropertyOf: 

@@ -1,4 +1,5 @@
-﻿using bag;
+﻿using Bag;
+using Bam;
 using Bam.Console;
 using Bam.DependencyInjection;
 using Bam.Shell;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bam.Activity.Tests.Commands
+namespace Bag.Commands
 {
     [ConsoleMenu("bam activity generator options")]
     public class Generate : ConsoleMenuContainer
@@ -18,21 +19,68 @@ namespace Bam.Activity.Tests.Commands
         {
         }
 
+        public override ServiceRegistry Configure(ServiceRegistry serviceRegistry)
+        {
+            if (BamConsoleContext.Current.Arguments.Contains("inputFile", out string? inputFile))
+            {
+                if (!string.IsNullOrEmpty(inputFile))
+                {
+                    serviceRegistry.For<IInput>().Use(new FileInput(inputFile));
+                }
+            }
+            else
+            {
+                serviceRegistry.For<IInput>().Use(() =>
+                {
+                    PromptInput input = new PromptInput();
+                    input.SetPrompt("Url", "Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ", "https://www.w3.org/TR/activitystreams-vocabulary/");
+                    return input;
+                });
+            }
+            serviceRegistry.For<BamVocabularyGeneratorConfig>().Use(() => BamVocabularyGeneratorConfig.Load());
+
+            return base.Configure(serviceRegistry);
+        
+        }
 
         [ConsoleCommand("initConfig")]
         [MenuItem]
-        public Task InitConfig()
+        public async Task InitConfig()
         {
-            throw new NotImplementedException();
+            BamVocabularyGeneratorConfig config = new BamVocabularyGeneratorConfig();
+            config.Save();
+            Message.PrintLine("Config file created at {0}", new FileInfo(config.ConfigPath).FullName);
         }
 
-        [ConsoleCommand("read types")]
+        [ConsoleCommand("Generate vocabulary code")]
         [MenuItem]
-        public async Task ReadTypes()
+        public async Task GenerateCode()
         {
-            string url = Prompt.Show("Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ")
-                .Or("https://www.w3.org/TR/activitystreams-vocabulary/");
+            BamVocabularyGeneratorConfig config = Get<BamVocabularyGeneratorConfig>();
+            VocabularyCodeGenerator generator = new VocabularyCodeGenerator(config);
+            generator.Generate();
+        }
 
+        [ConsoleCommand("Download all")]
+        [MenuItem]
+        public async Task DownloadAll()
+        {
+            Task.WaitAll
+            (
+                DownloadCoreTypes(), 
+                DownloadActivityTypes(),
+                DownloadActorTypes(),
+                DownloadObjectTypes(),
+                DownloadProperties()
+            );
+        }
+
+        [ConsoleCommand("Download core types")]
+        [MenuItem]
+        public async Task DownloadCoreTypes()
+        {
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
@@ -40,7 +88,6 @@ namespace Bam.Activity.Tests.Commands
             HttpResponseMessage responnse = await client.GetAsync(url);
             if (responnse.IsSuccessStatusCode)
             {
-
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
@@ -59,6 +106,7 @@ namespace Bam.Activity.Tests.Commands
                     Message.PrintLine("{0}", definition.ToYaml());
                     Message.PrintLine("-----");
                 }
+                SaveVocabularyTypeDefinitions(vocabularyDefinitions, Get<BamVocabularyGeneratorConfig>().CoreTypesDirectory);
             }
             else
             {
@@ -66,13 +114,12 @@ namespace Bam.Activity.Tests.Commands
             }
         }
 
-        [ConsoleCommand("read activity types")]
+        [ConsoleCommand("Download activity types")]
         [MenuItem]
-        public async Task ReadActivityTypes()
+        public async Task DownloadActivityTypes()
         {
-            string url = Prompt.Show("Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ")
-                            .Or("https://www.w3.org/TR/activitystreams-vocabulary/");
-
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
@@ -80,7 +127,6 @@ namespace Bam.Activity.Tests.Commands
             HttpResponseMessage responnse = await client.GetAsync(url);
             if (responnse.IsSuccessStatusCode)
             {
-
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
@@ -98,6 +144,7 @@ namespace Bam.Activity.Tests.Commands
                     Message.PrintLine("{0}", definition.ToYaml());
                     Message.PrintLine("-----");
                 }
+                SaveVocabularyTypeDefinitions(vocabularyDefinitions, Get<BamVocabularyGeneratorConfig>().ActivityTypesDirecotory);
             }
             else
             {
@@ -105,13 +152,12 @@ namespace Bam.Activity.Tests.Commands
             }
         }
 
-        [ConsoleCommand("read actor types")]
+        [ConsoleCommand("Download actor types")]
         [MenuItem]
-        public async Task ReadActorTypes()
+        public async Task DownloadActorTypes()
         {
-            string url = Prompt.Show("Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ")
-                            .Or("https://www.w3.org/TR/activitystreams-vocabulary/");
-
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
@@ -119,7 +165,6 @@ namespace Bam.Activity.Tests.Commands
             HttpResponseMessage responnse = await client.GetAsync(url);
             if (responnse.IsSuccessStatusCode)
             {
-
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
@@ -137,6 +182,8 @@ namespace Bam.Activity.Tests.Commands
                     Message.PrintLine("{0}", definition.ToYaml());
                     Message.PrintLine("-----");
                 }
+
+                SaveVocabularyTypeDefinitions(vocabularyDefinitions, Get<BamVocabularyGeneratorConfig>().ActorTypesDirectory);
             }
             else
             {
@@ -144,13 +191,51 @@ namespace Bam.Activity.Tests.Commands
             }
         }
 
-        [ConsoleCommand("read properties")]
+        [ConsoleCommand("Download object types")]
         [MenuItem]
-        public async Task ReadProperties()
+        public async Task DownloadObjectTypes()
         {
-            string url = Prompt.Show("Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ")
-                .Or("https://www.w3.org/TR/activitystreams-vocabulary/");
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
 
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responnse = await client.GetAsync(url);
+            if (responnse.IsSuccessStatusCode)
+            {
+                List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
+
+                string content = await responnse.Content.ReadAsStringAsync();
+                CQ dom = CQ.Create(content);
+
+                CQ actorTypesTable = dom["#object-types > table"];
+                CQ actorTypes = CQ.Create(actorTypesTable)["tbody"];
+                actorTypes.Each((i, body) =>
+                {
+                    ParseTypeDefinition(body, vocabularyDefinitions);
+                });
+
+                foreach (VocabularyTypeDefinition definition in vocabularyDefinitions)
+                {
+                    Message.PrintLine("{0}", definition.ToYaml());
+                    Message.PrintLine("-----");
+                }
+
+                SaveVocabularyTypeDefinitions(vocabularyDefinitions, Get<BamVocabularyGeneratorConfig>().ObjectTypesDirectory);
+            }
+            else
+            {
+                Message.PrintLine("Error: {0} - {1}", responnse.StatusCode, responnse.ReasonPhrase);
+            }
+        }
+
+        [ConsoleCommand("Downlaod properties")]
+        [MenuItem]
+        public async Task DownloadProperties()
+        {
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
@@ -169,7 +254,6 @@ namespace Bam.Activity.Tests.Commands
                 properties.Each((i, body) =>
                 {
                     ParsePropertyDefinition(body, propertyDefinitions);
-
                 });
 
                 foreach (VocabularyPropertyDefinition definition in propertyDefinitions)
@@ -177,6 +261,7 @@ namespace Bam.Activity.Tests.Commands
                     Message.PrintLine("{0}", definition.ToYaml());
                     Message.PrintLine("-----");
                 }
+                SaveVocabularyPropertyDefinitions(propertyDefinitions);
             }
             else
             {
@@ -191,6 +276,10 @@ namespace Bam.Activity.Tests.Commands
             string definitionText = definition.Text().Trim();
             if (!string.IsNullOrEmpty(definitionText))
             {
+                if (definitionText.Equals("Relationship"))
+                {
+                    definitionText = "RelationshipDescriptor"; // Relationship has a property called relationship which causes issues
+                }
                 vocabulary.Name = definitionText;
             }
             CQ rows = CQ.Create(body)["tr"];
@@ -207,8 +296,8 @@ namespace Bam.Activity.Tests.Commands
                     }
                     else if (cellText.Trim().StartsWith("Example"))
                     {
-                        _ = cellText.ReadUntil("{", out string example);
-                        vocabulary.Example = "{\r\n" + example.Trim();
+                        CQ exampleText = CQ.Create(cells[i])["pre"];
+                        vocabulary.Example = exampleText.Text().Trim();
                     }
                     else if (cellText.Equals("Notes:"))
                     {
@@ -216,7 +305,7 @@ namespace Bam.Activity.Tests.Commands
                     }
                     else if (cellText.Equals("Extends:"))
                     {
-                        vocabulary.Extends = CQ.Create(cells[i + 1])["a"].Text().Trim();
+                        vocabulary.Extends = CQ.Create(cells[i + 1])["a"].First().Text().Trim();
                     }
                     else if (cellText.Equals("Properties:"))
                     {
@@ -229,7 +318,10 @@ namespace Bam.Activity.Tests.Commands
                                 string propText = CQ.Create(prop).Text();
                                 if (!string.IsNullOrEmpty(propText))
                                 {
-                                    vocabulary.Properties.Add(propText);
+                                    if (!vocabulary.Properties.Any(p => p.Equals(propText, StringComparison.InvariantCultureIgnoreCase)))
+                                    {
+                                        vocabulary.Properties.Add(propText);
+                                    }
                                 }
                             });
                         }
@@ -267,6 +359,10 @@ namespace Bam.Activity.Tests.Commands
                     {
                         vocabulary.Domain = CQ.Create(cells[i + 1])["a"].Text().Trim();
                     }
+                    else if (cellText.Equals("Functional:"))
+                    {
+                        vocabulary.IsFunctional = CQ.Create(cells[i + 1]).Text().Trim().Equals("True", StringComparison.InvariantCultureIgnoreCase);
+                    }
                     else if (cellText.Equals("Range:"))
                     {
                         CQ range = CQ.Create(cells[i + 1])["a"];
@@ -299,6 +395,36 @@ namespace Bam.Activity.Tests.Commands
                     vocabulary.Range.Add(rangeText);
                 }
             });
+        }
+
+        private void SaveVocabularyTypeDefinitions(List<VocabularyTypeDefinition> vocabularyTypeDefinitions, string directory)
+        {
+            foreach (VocabularyTypeDefinition vocabularyTypeDefinition in vocabularyTypeDefinitions)
+            {
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                string filePath = Path.Combine(directory, vocabularyTypeDefinition.Name + ".yaml");
+                File.WriteAllText(filePath, vocabularyTypeDefinition.ToYaml());
+                Message.PrintLine("Wrote {0}", filePath);
+            }
+        }
+
+        private void SaveVocabularyPropertyDefinitions(List<VocabularyPropertyDefinition> vocabularyPropertyDefinitions)
+        {
+            foreach(VocabularyPropertyDefinition vocabularyPropertyDefinition in vocabularyPropertyDefinitions)
+            {
+                string outputDirectory = Get<BamVocabularyGeneratorConfig>().DefinitionsDirectory;
+                string propertyDirectory = Path.Combine(outputDirectory, "properties");
+                if (!Directory.Exists(propertyDirectory))
+                {
+                    Directory.CreateDirectory(propertyDirectory);
+                }
+                string filePath = Path.Combine(propertyDirectory, vocabularyPropertyDefinition.Name + ".yaml");
+                File.WriteAllText(filePath, vocabularyPropertyDefinition.ToYaml());
+                Message.PrintLine("Wrote {0}", filePath);
+            }
         }
     }
 }

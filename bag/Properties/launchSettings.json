@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "bag": {
+      "commandName": "Project",
+      "commandLineArgs": "--inputFile=BamVocabularyGenerator.inputs.yaml"
+    }
+  }
+}

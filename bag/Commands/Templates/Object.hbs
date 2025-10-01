@@ -1,0 +1,17 @@
+namespace {{Namespace}}
+{
+    public class {{ClassName}} : {{Extends}}
+    {
+        public {{ClassName}}(IdHost idHost) : base(idHost)
+        {
+{{#each Properties}}
+{{> AddProperty }}
+{{/each}}
+        }
+
+{{#each Properties}}
+{{> ClassProperty }}
+{{/each}}
+
+    }
+}

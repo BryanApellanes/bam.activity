@@ -1,0 +1,10 @@
+Name: altitude
+Uri: https://www.w3.org/ns/activitystreams#altitude
+Notes: >-
+  Indicates the altitude of a place. The measurement units is indicated using the units property. If
+              units is not specified, the default is assumed to be "m" indicating meters.
+Domain: Object
+Range:
+  - xsd:float
+IsFunctional: true
+SubPropertyOf: 

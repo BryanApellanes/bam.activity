@@ -7,8 +7,15 @@ namespace Bam.Activity
     public interface IProperty
     {
         string Name { get; set; }
-        string Value { get; set; }
+        object? Value { get; set; }
+        bool IsFunctional { get; set; }
 
+        void Add(object value);
+        
+        /// <summary>
+        /// When implemented, returns a JSON representation of the value of this property.
+        /// </summary>
+        /// <returns></returns>
         string ToJson();
     }
 }

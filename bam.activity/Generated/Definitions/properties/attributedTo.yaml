@@ -1,0 +1,9 @@
+Name: attributedTo
+Uri: https://www.w3.org/ns/activitystreams#attributedTo
+Notes: Identifies one or more entities to which this object is attributed. The attributed entities might not be Actors. For instance, an object might be attributed to the completion of another activity.
+Domain: LinkObject
+Range:
+  - Link
+  - Object
+IsFunctional: false
+SubPropertyOf: 

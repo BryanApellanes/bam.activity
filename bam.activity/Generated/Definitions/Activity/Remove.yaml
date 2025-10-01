@@ -1,0 +1,38 @@
+Name: Remove
+Uri: https://www.w3.org/ns/activitystreams#Remove
+Notes: >-
+  Indicates that the actor is removing the
+                object. If specified, the origin indicates the context from which the object is being removed.
+Extends: Activity
+Properties: []
+Example: >-
+  {
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "Sally removed a note from her notes folder",
+    "type": "Remove",
+    "actor": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "object": "http://example.org/notes/1",
+    "target": {
+      "type": "Collection",
+      "name": "Notes Folder"
+    }
+  }{
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "summary": "The moderator removed Sally from a group",
+    "type": "Remove",
+    "actor": {
+      "type": "http://example.org/Role",
+      "name": "The Moderator"
+    },
+    "object": {
+      "type": "Person",
+      "name": "Sally"
+    },
+    "origin": {
+      "type": "Group",
+      "name": "A Simple Group"
+    }
+  }

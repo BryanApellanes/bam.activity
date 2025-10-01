@@ -1,0 +1,7 @@
+Name: mediaType
+Uri: https://www.w3.org/ns/activitystreams#mediaType
+Notes: "When used on a Link, identifies the MIME media type of the referenced resource.\n            \n            \n              When used on an Object, identifies the MIME media type of the value of the content property. If not specified, the content property is assumed to contain text/html content."
+Domain: LinkObject
+Range: []
+IsFunctional: true
+SubPropertyOf: 

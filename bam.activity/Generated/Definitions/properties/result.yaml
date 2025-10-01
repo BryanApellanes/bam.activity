@@ -1,0 +1,9 @@
+Name: result
+Uri: https://www.w3.org/ns/activitystreams#result
+Notes: Describes the result of the activity. For instance, if a particular action results in the creation of a new resource, the result property can be used to describe that new resource.
+Domain: Activity
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 
