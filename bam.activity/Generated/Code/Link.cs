@@ -1,24 +1,26 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Link : VocabularyObjectRoot
     {
         public Link(IdHost idHost) : base(idHost)
         {
-            this.Property("href", null, true);
-            this.Property("rel", null, false);
-            this.Property("mediaType", null, true);
-            this.Property("name", null, false);
-            this.Property("hreflang", null, true);
-            this.Property("height", null, true);
-            this.Property("width", null, true);
-            this.Property("preview", null, false);
+            this.InitProperty("href", null, true, "xsd:anyURI");
+            this.InitProperty("rel", null, false, "RFC5988", "[HTML5]");
+            this.InitProperty("mediaType", null, true, "");
+            this.InitProperty("name", null, false, "xsd:string", "rdf:langString");
+            this.InitProperty("hreflang", null, true, "BCP47");
+            this.InitProperty("height", null, true, "xsd:nonNegativeInteger");
+            this.InitProperty("width", null, true, "xsd:nonNegativeInteger");
+            this.InitProperty("preview", null, false, "Link", "Object");
         }
 
-        public object? Href
+        public Range<string>? Href
         {
             get
             {
-                return Property("href");
+                return Property("href") as Range<string>;
             }
             set
             {
@@ -26,11 +28,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Rel
+        public Range<string>? Rel
         {
             get
             {
-                return Property("rel");
+                return Property("rel") as Range<string>;
             }
             set
             {
@@ -38,11 +40,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? MediaType
+        public Object? MediaType
         {
             get
             {
-                return Property("mediaType");
+                return Property("mediaType") as Object;
             }
             set
             {
@@ -50,11 +52,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Name
+        public Range<string>? Name
         {
             get
             {
-                return Property("name");
+                return Property("name") as Range<string>;
             }
             set
             {
@@ -62,11 +64,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Hreflang
+        public Range<string>? Hreflang
         {
             get
             {
-                return Property("hreflang");
+                return Property("hreflang") as Range<string>;
             }
             set
             {
@@ -74,11 +76,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Height
+        public Range<ulong>? Height
         {
             get
             {
-                return Property("height");
+                return Property("height") as Range<ulong>;
             }
             set
             {
@@ -86,11 +88,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Width
+        public Range<ulong>? Width
         {
             get
             {
-                return Property("width");
+                return Property("width") as Range<ulong>;
             }
             set
             {
@@ -98,11 +100,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Preview
+        public Range<Link, Object>? Preview
         {
             get
             {
-                return Property("preview");
+                return Property("preview") as Range<Link, Object>;
             }
             set
             {

@@ -1,34 +1,23 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Profile : Object, IProfile
     {
         public Profile(IdHost idHost) : base(idHost)
         {
-            this.Property("describes", null, true);
-            this.Property("Object", null, true);
+            this.InitProperty("describes", null, true, "Object");
         }
 
-        public object? Describes
+        public Range<Object>? Describes
         {
             get
             {
-                return Property("describes");
+                return Property("describes") as Range<Object>;
             }
             set
             {
                 Property("describes", value);
-            }
-        }
-    
-        public object? Object
-        {
-            get
-            {
-                return Property("Object");
-            }
-            set
-            {
-                Property("Object", value);
             }
         }
     

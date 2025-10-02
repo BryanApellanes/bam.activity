@@ -1,37 +1,43 @@
-﻿using Bam.Console;
+﻿using Bam;
+using Bam.Console;
 using Bam.Generators;
 using System.Reflection;
 
 namespace Bag
 {
-    internal class VocabularyCodeGenerator
+    public class VocabularyCodeGenerator
     {
-        private BamVocabularyGeneratorConfig config;
-
-        public VocabularyCodeGenerator(BamVocabularyGeneratorConfig config)
+        public VocabularyCodeGenerator(BamVocabularyGeneratorConfig config, VocabularyLookup vocabularyLookup, ITemplateRenderer templateRenderer)
         {
-            this.config = config;
+            this.Config = config;
+            this.VocabularyLookup = vocabularyLookup;
+            this.TemplateRenderer = templateRenderer;
         }
+
+        public BamVocabularyGeneratorConfig Config { get; set; }
+        public VocabularyLookup VocabularyLookup { get; set; }
+        public ITemplateRenderer TemplateRenderer { get; set; }
 
         public void Generate()
         {
-            VocabularyLookup lookup = VocabularyLookup.Load(config.DefinitionsDirectory);
+            VocabularyLookup lookup = VocabularyLookup.Load(Config.DefinitionsDirectory);
             HandlebarsEmbeddedResources handlebarsEmbeddedResources = new HandlebarsEmbeddedResources(Assembly.GetExecutingAssembly());
+            Dictionary<string, string> propertyTypeMap = PropertyTypeMap.Load();
 
-            foreach(VocabularyTypeDefinition typeDefinition in lookup.TypeDefinitions)
+            foreach (VocabularyTypeDefinition typeDefinition in lookup.TypeDefinitions)
             {
-                VocabularyModel model = new VocabularyModel(lookup, typeDefinition, config.TargetNamespace);
-                WriteClass(handlebarsEmbeddedResources, typeDefinition, model);
-                WriteInterface(handlebarsEmbeddedResources, typeDefinition, model);
+                VocabularyModel model = new VocabularyModel(lookup, typeDefinition, propertyTypeMap, Config.TargetNamespace);
+                WriteClass(typeDefinition, model);
+                WriteInterface(typeDefinition, model);
             }
 
         }
 
-        private void WriteClass(HandlebarsEmbeddedResources handlebarsEmbeddedResources, VocabularyTypeDefinition typeDefinition, VocabularyModel model)
+        private void WriteClass(VocabularyTypeDefinition typeDefinition, VocabularyModel model)
         {
-            string classCode = handlebarsEmbeddedResources.Render("Object", model);
+            string classCode = TemplateRenderer.Render("Object", model);
             Message.PrintLine(classCode, ConsoleColor.Blue);
-            FileInfo file = new FileInfo(Path.Combine(config.CodeDirectory, $"{typeDefinition.Name}.cs"));
+            FileInfo file = new FileInfo(Path.Combine(Config.CodeDirectory, $"{typeDefinition.Name}.cs"));
             if (file.Exists)
             {
                 file.Delete();
@@ -43,11 +49,11 @@ namespace Bag
             File.WriteAllText(file.FullName, classCode);
         }
 
-        private void WriteInterface(HandlebarsEmbeddedResources handlebarsEmbeddedResources, VocabularyTypeDefinition typeDefinition, VocabularyModel model)
+        private void WriteInterface(VocabularyTypeDefinition typeDefinition, VocabularyModel model)
         {
-            string classCode = handlebarsEmbeddedResources.Render("Interface", model);
+            string classCode = TemplateRenderer.Render("Interface", model);
             Message.PrintLine(classCode, ConsoleColor.Blue);
-            FileInfo file = new FileInfo(Path.Combine(config.CodeDirectory, $"I{typeDefinition.Name}.cs"));
+            FileInfo file = new FileInfo(Path.Combine(Config.CodeDirectory, $"I{typeDefinition.Name}.cs"));
             if (file.Exists)
             {
                 file.Delete();

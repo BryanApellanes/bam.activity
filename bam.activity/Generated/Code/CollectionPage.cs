@@ -1,20 +1,21 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class CollectionPage : Collection, ICollectionPage
     {
         public CollectionPage(IdHost idHost) : base(idHost)
         {
-            this.Property("partOf", null, true);
-            this.Property("next", null, true);
-            this.Property("prev", null, true);
-            this.Property("Collection", null, true);
+            this.InitProperty("partOf", null, true, "Link", "Collection");
+            this.InitProperty("next", null, true, "CollectionPage", "Link");
+            this.InitProperty("prev", null, true, "CollectionPage", "Link");
         }
 
-        public object? PartOf
+        public Range<Link, Collection>? PartOf
         {
             get
             {
-                return Property("partOf");
+                return Property("partOf") as Range<Link, Collection>;
             }
             set
             {
@@ -22,11 +23,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Next
+        public Range<CollectionPage, Link>? Next
         {
             get
             {
-                return Property("next");
+                return Property("next") as Range<CollectionPage, Link>;
             }
             set
             {
@@ -34,27 +35,15 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Prev
+        public Range<CollectionPage, Link>? Prev
         {
             get
             {
-                return Property("prev");
+                return Property("prev") as Range<CollectionPage, Link>;
             }
             set
             {
                 Property("prev", value);
-            }
-        }
-    
-        public object? Collection
-        {
-            get
-            {
-                return Property("Collection");
-            }
-            set
-            {
-                Property("Collection", value);
             }
         }
     

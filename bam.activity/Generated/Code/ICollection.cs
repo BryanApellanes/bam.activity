@@ -1,14 +1,15 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public interface ICollection
     {
 
-        public object? TotalItems { get; set; }
-        public object? Current { get; set; }
-        public object? First { get; set; }
-        public object? Last { get; set; }
-        public object? Items { get; set; }
-        public object? Object { get; set; }
+        public Range<ulong>? TotalItems { get; set; }
+        public Range<CollectionPage, Link>? Current { get; set; }
+        public Range<CollectionPage, Link>? First { get; set; }
+        public Range<CollectionPage, Link>? Last { get; set; }
+        public Range<Object, Link>? Items { get; set; }
 
     }
 }

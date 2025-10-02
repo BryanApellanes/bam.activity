@@ -9,7 +9,8 @@ namespace Bam.Activity
         string ToJson();  
         IEnumerable<IProperty> Properties { get; }
 
-        void Property(string name, object value, bool isFunctional = false);
+        //void Property(string name, object value, bool isFunctional = false);
         object? Property(string name);
+        void Property(string name, object value);
     }
 }

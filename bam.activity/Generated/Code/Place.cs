@@ -1,23 +1,24 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Place : Object, IPlace
     {
         public Place(IdHost idHost) : base(idHost)
         {
-            this.Property("accuracy", null, true);
-            this.Property("altitude", null, true);
-            this.Property("latitude", null, true);
-            this.Property("longitude", null, true);
-            this.Property("radius", null, true);
-            this.Property("units", null, true);
-            this.Property("Object", null, true);
+            this.InitProperty("accuracy", null, true, "xsd:float");
+            this.InitProperty("altitude", null, true, "xsd:float");
+            this.InitProperty("latitude", null, true, "xsd:float");
+            this.InitProperty("longitude", null, true, "xsd:float");
+            this.InitProperty("radius", null, true, "xsd:float");
+            this.InitProperty("units", null, true, "cm", "feet", "inches", "km", "m", "miles", "xsd:anyURI");
         }
 
-        public object? Accuracy
+        public Range<float>? Accuracy
         {
             get
             {
-                return Property("accuracy");
+                return Property("accuracy") as Range<float>;
             }
             set
             {
@@ -25,11 +26,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Altitude
+        public Range<float>? Altitude
         {
             get
             {
-                return Property("altitude");
+                return Property("altitude") as Range<float>;
             }
             set
             {
@@ -37,11 +38,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Latitude
+        public Range<float>? Latitude
         {
             get
             {
-                return Property("latitude");
+                return Property("latitude") as Range<float>;
             }
             set
             {
@@ -49,11 +50,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Longitude
+        public Range<float>? Longitude
         {
             get
             {
-                return Property("longitude");
+                return Property("longitude") as Range<float>;
             }
             set
             {
@@ -61,11 +62,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Radius
+        public Range<float>? Radius
         {
             get
             {
-                return Property("radius");
+                return Property("radius") as Range<float>;
             }
             set
             {
@@ -73,27 +74,15 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Units
+        public Range<decimal, string>? Units
         {
             get
             {
-                return Property("units");
+                return Property("units") as Range<decimal, string>;
             }
             set
             {
                 Property("units", value);
-            }
-        }
-    
-        public object? Object
-        {
-            get
-            {
-                return Property("Object");
-            }
-            set
-            {
-                Property("Object", value);
             }
         }
     

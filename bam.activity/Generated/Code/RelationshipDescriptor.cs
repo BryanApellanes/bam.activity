@@ -1,19 +1,21 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class RelationshipDescriptor : Object, IRelationshipDescriptor
     {
         public RelationshipDescriptor(IdHost idHost) : base(idHost)
         {
-            this.Property("subject", null, true);
-            this.Property("object", null, false);
-            this.Property("relationship", null, false);
+            this.InitProperty("subject", null, true, "Link", "Object");
+            this.InitProperty("object", null, false, "Object", "Link");
+            this.InitProperty("relationship", null, false, "Object");
         }
 
-        public object? Subject
+        public Range<Link, Object>? Subject
         {
             get
             {
-                return Property("subject");
+                return Property("subject") as Range<Link, Object>;
             }
             set
             {
@@ -21,11 +23,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Object
+        public Range<Object, Link>? Object
         {
             get
             {
-                return Property("object");
+                return Property("object") as Range<Object, Link>;
             }
             set
             {
@@ -33,11 +35,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Relationship
+        public Range<Object>? Relationship
         {
             get
             {
-                return Property("relationship");
+                return Property("relationship") as Range<Object>;
             }
             set
             {

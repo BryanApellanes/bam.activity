@@ -5,7 +5,6 @@ Extends: Object
 Properties:
   - formerType
   - deleted
-  - Object
 Example: >-
   {
     "type": "OrderedCollection",

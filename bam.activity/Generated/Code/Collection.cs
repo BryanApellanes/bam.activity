@@ -1,22 +1,23 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Collection : Object, ICollection
     {
         public Collection(IdHost idHost) : base(idHost)
         {
-            this.Property("totalItems", null, true);
-            this.Property("current", null, true);
-            this.Property("first", null, true);
-            this.Property("last", null, true);
-            this.Property("items", null, false);
-            this.Property("Object", null, true);
+            this.InitProperty("totalItems", null, true, "xsd:nonNegativeInteger");
+            this.InitProperty("current", null, true, "CollectionPage", "Link");
+            this.InitProperty("first", null, true, "CollectionPage", "Link");
+            this.InitProperty("last", null, true, "CollectionPage", "Link");
+            this.InitProperty("items", null, false, "Object", "Link", "Object", "Link");
         }
 
-        public object? TotalItems
+        public Range<ulong>? TotalItems
         {
             get
             {
-                return Property("totalItems");
+                return Property("totalItems") as Range<ulong>;
             }
             set
             {
@@ -24,11 +25,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Current
+        public Range<CollectionPage, Link>? Current
         {
             get
             {
-                return Property("current");
+                return Property("current") as Range<CollectionPage, Link>;
             }
             set
             {
@@ -36,11 +37,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? First
+        public Range<CollectionPage, Link>? First
         {
             get
             {
-                return Property("first");
+                return Property("first") as Range<CollectionPage, Link>;
             }
             set
             {
@@ -48,11 +49,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Last
+        public Range<CollectionPage, Link>? Last
         {
             get
             {
-                return Property("last");
+                return Property("last") as Range<CollectionPage, Link>;
             }
             set
             {
@@ -60,27 +61,15 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Items
+        public Range<Object, Link>? Items
         {
             get
             {
-                return Property("items");
+                return Property("items") as Range<Object, Link>;
             }
             set
             {
                 Property("items", value);
-            }
-        }
-    
-        public object? Object
-        {
-            get
-            {
-                return Property("Object");
-            }
-            set
-            {
-                Property("Object", value);
             }
         }
     

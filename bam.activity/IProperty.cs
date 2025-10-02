@@ -9,6 +9,7 @@ namespace Bam.Activity
         string Name { get; set; }
         object? Value { get; set; }
         bool IsFunctional { get; set; }
+        List<string> Range { get; set; }
 
         void Add(object value);
         

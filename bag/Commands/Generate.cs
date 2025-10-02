@@ -1,14 +1,10 @@
-﻿using Bag;
-using Bam;
+﻿using Bam;
 using Bam.Console;
 using Bam.DependencyInjection;
+using Bam.Generators;
 using Bam.Shell;
 using CsQuery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Bag.Commands
 {
@@ -21,26 +17,9 @@ namespace Bag.Commands
 
         public override ServiceRegistry Configure(ServiceRegistry serviceRegistry)
         {
-            if (BamConsoleContext.Current.Arguments.Contains("inputFile", out string? inputFile))
-            {
-                if (!string.IsNullOrEmpty(inputFile))
-                {
-                    serviceRegistry.For<IInput>().Use(new FileInput(inputFile));
-                }
-            }
-            else
-            {
-                serviceRegistry.For<IInput>().Use(() =>
-                {
-                    PromptInput input = new PromptInput();
-                    input.SetPrompt("Url", "Enter the url to read from (default: 'https://www.w3.org/TR/activitystreams-vocabulary/') ", "https://www.w3.org/TR/activitystreams-vocabulary/");
-                    return input;
-                });
-            }
-            serviceRegistry.For<BamVocabularyGeneratorConfig>().Use(() => BamVocabularyGeneratorConfig.Load());
+            Configurer.ConfigureServiceRegistry(serviceRegistry);
 
             return base.Configure(serviceRegistry);
-        
         }
 
         [ConsoleCommand("initConfig")]
@@ -52,34 +31,17 @@ namespace Bag.Commands
             Message.PrintLine("Config file created at {0}", new FileInfo(config.ConfigPath).FullName);
         }
 
-        [ConsoleCommand("Show extends")]
-        [MenuItem]
-        public async Task ShowExtends()
-        {
-            VocabularyLookup vocabularyLookup = VocabularyLookup.Load(Get<BamVocabularyGeneratorConfig>().DefinitionsDirectory);
-            foreach(VocabularyTypeDefinition typeDefinition in vocabularyLookup.TypeDefinitions)
-            {
-                Message.PrintLine("{0} : {1}", typeDefinition.Name, typeDefinition.Extends);
-            }
-        }
-
-        [ConsoleCommand("Show ranges")]
-        [MenuItem]
-        public async Task ShowRanges()
-        {
-            VocabularyLookup vocabularyLookup = VocabularyLookup.Load(Get<BamVocabularyGeneratorConfig>().DefinitionsDirectory);
-            foreach(VocabularyPropertyDefinition propertyDefinition in vocabularyLookup.PropertyDefinitions)
-            {
-                Message.PrintLine("{0} : {1}", propertyDefinition.Name, string.Join(", ", propertyDefinition.Range));
-            }
-        }
-
         [ConsoleCommand("Generate vocabulary code")]
         [MenuItem]
         public async Task GenerateCode()
         {
             BamVocabularyGeneratorConfig config = Get<BamVocabularyGeneratorConfig>();
-            VocabularyCodeGenerator generator = new VocabularyCodeGenerator(config);
+            VocabularyCodeGenerator generator = new VocabularyCodeGenerator
+            (
+                config, 
+                VocabularyLookup.Load(config.DefinitionsDirectory), 
+                new HandlebarsEmbeddedResources(Assembly.GetExecutingAssembly())
+            );
             generator.Generate();
         }
 
@@ -95,6 +57,40 @@ namespace Bag.Commands
                 DownloadObjectTypes(),
                 DownloadProperties()
             );
+        }
+
+
+        [ConsoleCommand("Download html content")]
+        [MenuItem]
+        public async Task DownloadHtmlContent()
+        {
+            BamVocabularyGeneratorConfig config = Get<BamVocabularyGeneratorConfig>();
+            IInput input = Get<IInput>();
+            string url = input.Get("Url");
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+
+            HttpResponseMessage responnse = await client.GetAsync(url);
+            if (responnse.IsSuccessStatusCode)
+            {
+                List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
+
+                string content = await responnse.Content.ReadAsStringAsync();
+                string[] segments = url.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                string fileName = segments[segments.Length - 1];
+                FileInfo file = new FileInfo(Path.Combine(config.DefinitionsDirectory, fileName + ".html"));
+                if (file.Exists)
+                {
+                    File.Delete(file.FullName);
+                }
+                if(!Directory.Exists(file.DirectoryName))
+                {
+                    Directory.CreateDirectory(file.DirectoryName);
+                }
+                File.WriteAllText(file.FullName, content);
+                Message.PrintLine("Wrote {0}", file.FullName);
+            }
         }
 
         [ConsoleCommand("Download core types")]
@@ -334,7 +330,7 @@ namespace Bag.Commands
                         string propDesc = CQ.Create(cells[i + 1]).Text().Trim();
                         if (!propDesc.StartsWith("Inherits"))
                         {
-                            CQ props = CQ.Create(cells[i + 1])["a"];
+                            CQ props = CQ.Create(CQ.Create(cells[i + 1])["p:first-of-type"])["a"];
                             props.Each((k, prop) =>
                             {
                                 string propText = CQ.Create(prop).Text();

@@ -1,22 +1,24 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Activity : Object, IActivity
     {
         public Activity(IdHost idHost) : base(idHost)
         {
-            this.Property("actor", null, false);
-            this.Property("object", null, false);
-            this.Property("target", null, false);
-            this.Property("result", null, false);
-            this.Property("origin", null, false);
-            this.Property("instrument", null, false);
+            this.InitProperty("actor", null, false, "Object", "Link");
+            this.InitProperty("object", null, false, "Object", "Link");
+            this.InitProperty("target", null, false, "Object", "Link");
+            this.InitProperty("result", null, false, "Object", "Link");
+            this.InitProperty("origin", null, false, "Object", "Link");
+            this.InitProperty("instrument", null, false, "Object", "Link");
         }
 
-        public object? Actor
+        public Range<Object, Link>? Actor
         {
             get
             {
-                return Property("actor");
+                return Property("actor") as Range<Object, Link>;
             }
             set
             {
@@ -24,11 +26,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Object
+        public Range<Object, Link>? Object
         {
             get
             {
-                return Property("object");
+                return Property("object") as Range<Object, Link>;
             }
             set
             {
@@ -36,11 +38,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Target
+        public Range<Object, Link>? Target
         {
             get
             {
-                return Property("target");
+                return Property("target") as Range<Object, Link>;
             }
             set
             {
@@ -48,11 +50,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Result
+        public Range<Object, Link>? Result
         {
             get
             {
-                return Property("result");
+                return Property("result") as Range<Object, Link>;
             }
             set
             {
@@ -60,11 +62,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Origin
+        public Range<Object, Link>? Origin
         {
             get
             {
-                return Property("origin");
+                return Property("origin") as Range<Object, Link>;
             }
             set
             {
@@ -72,11 +74,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Instrument
+        public Range<Object, Link>? Instrument
         {
             get
             {
-                return Property("instrument");
+                return Property("instrument") as Range<Object, Link>;
             }
             set
             {

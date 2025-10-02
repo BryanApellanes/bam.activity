@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bag
+﻿namespace Bag
 {
     public class VocabularyModel
     {
         public const string VocabularyObjectRoot = "VocabularyObjectRoot";
 
-        public VocabularyModel(VocabularyLookup lookup, VocabularyTypeDefinition definiton, string nameSpace)
+        public VocabularyModel(VocabularyLookup lookup, VocabularyTypeDefinition definiton, Dictionary<string, string> propertyTypeMap, string nameSpace)
         {
             Lookup = lookup;
             Definition = definiton;
             Namespace = nameSpace;
+            PropertyTypeMap = propertyTypeMap;
         }
 
         public string Namespace { get; set; }
         public VocabularyTypeDefinition Definition { get; set; }
         public VocabularyLookup Lookup { get; set; }
+        public Dictionary<string, string> PropertyTypeMap { get; set; }
 
         public string ClassName
         {
@@ -74,18 +70,18 @@ namespace Bag
 
         private PropertyModel[] GetPropertyModels()
         {
-            List<PropertyModel> properties = new List<PropertyModel>(Definition.Properties.Select(p => new PropertyModel(Lookup.GetPropertyDefinition(p))).ToArray());
+            List<PropertyModel> properties = new List<PropertyModel>(Definition.Properties.Select(p => new PropertyModel(Lookup.GetPropertyDefinition(p), PropertyTypeMap)).ToArray());
             if (!string.IsNullOrEmpty(Definition?.Extends))
             {
                 string[] extends = Definition.Extends.Split(",");
-                if (extends.Length > 1)
+                if (extends.Length > 1) // if it extends multiple types, add properties from derived types
                 {
                     foreach (string extend in extends)
                     {
                         VocabularyTypeDefinition? typeDef = Lookup.TypeDefinitions.Where(td => td.Name.Equals(extend.Trim(), StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                         if (typeDef != null)
                         {
-                            properties.AddRange(typeDef.Properties.Select(p => new PropertyModel(Lookup.GetPropertyDefinition(p))).ToArray());
+                            properties.AddRange(typeDef.Properties.Select(p => new PropertyModel(Lookup.GetPropertyDefinition(p), PropertyTypeMap)).ToArray());
                         }
                     }
                 }

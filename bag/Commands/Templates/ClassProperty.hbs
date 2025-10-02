@@ -1,8 +1,8 @@
-        public object? {{ClassPropertyName}}
+        public {{{ReturnType}}}? {{ClassPropertyName}}
         {
             get
             {
-                return Property("{{PropertyName}}");
+                return Property("{{PropertyName}}") as {{{ReturnType}}};
             }
             set
             {

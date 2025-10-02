@@ -1,14 +1,16 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public interface IActivity
     {
 
-        public object? Actor { get; set; }
-        public object? Object { get; set; }
-        public object? Target { get; set; }
-        public object? Result { get; set; }
-        public object? Origin { get; set; }
-        public object? Instrument { get; set; }
+        public Range<Object, Link>? Actor { get; set; }
+        public Range<Object, Link>? Object { get; set; }
+        public Range<Object, Link>? Target { get; set; }
+        public Range<Object, Link>? Result { get; set; }
+        public Range<Object, Link>? Origin { get; set; }
+        public Range<Object, Link>? Instrument { get; set; }
 
     }
 }

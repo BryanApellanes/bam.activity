@@ -21,6 +21,7 @@ namespace bam.Activity.Vocabulary
 
         public object? Value { get; set; }
         public bool IsFunctional { get; set; }
+        public List<string> Range { get; set; } = new List<string>();
 
         public void Add(object value)
         {

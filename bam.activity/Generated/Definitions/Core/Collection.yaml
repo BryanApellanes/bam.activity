@@ -8,7 +8,6 @@ Properties:
   - first
   - last
   - items
-  - Object
 Example: >-
   {
     "@context": "https://www.w3.org/ns/activitystreams",

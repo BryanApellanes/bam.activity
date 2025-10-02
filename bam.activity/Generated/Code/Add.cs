@@ -1,3 +1,5 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Add : Activity, IAdd

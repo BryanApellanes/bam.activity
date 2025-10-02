@@ -8,54 +8,79 @@ namespace Bam.Activity.Vocabulary
 {
     public abstract class VocabularyObjectRoot : IVocabularyObjectRoot
     {
-        List<IProperty> _properties = new List<IProperty>();
+        Dictionary<string, IProperty> _dictionaryOfProperties = new Dictionary<string, IProperty>();
         IdHost _idHost;
 
         public VocabularyObjectRoot(IdHost idHost)
         {
-            _properties.Add(new Property("@context", ActivityStreams.Context, true));
-            _properties.Add(new Property("type", this.GetType().Name, true));
+            this.AddProperty(new Property("@context", ActivityStreams.Context, true));
+            this.AddProperty(new Property("type", this.GetType().Name, true));
+        }
+
+        protected void InitProperty(string name, object? value, bool isFunctional, params string[] range)
+        {
+            IProperty? property = new Property(name, value, isFunctional);
+            
+            if (!_dictionaryOfProperties.ContainsKey(name))
+            {
+                this.AddProperty(property);
+            }
+            else
+            {
+                property = _dictionaryOfProperties[name];
+                if (property.IsFunctional)
+                {
+                    property.Value = value;
+                }
+                else
+                {
+                    property.Add(value);
+                }
+            }
+            property.Range = new List<string>(range);
+        }
+
+        public void Property(string name, object? value)
+        {
+            if (_dictionaryOfProperties.ContainsKey(name))
+            {
+                IProperty property = _dictionaryOfProperties[name];
+                if (property.IsFunctional)
+                {
+                    property.Value = value;
+                }
+                else
+                {
+                    property.Add(value);
+                }
+            }
         }
 
         public IEnumerable<IProperty> Properties
         {
-            get => _properties;
-        }
-
-        public void Property(string name, object? value, bool isFunctional = false)
-        {
-            IProperty? property = _properties.Find(p => p.Name == name);
-            if(property == null)
-            {
-                property = new Property(name, value, isFunctional);
-                _properties.Add(property);
-            }
-            else
-            {
-                if (property.IsFunctional)
-                { 
-                    property.Value = value; 
-                }
-                else 
-                {
-                    property.Add(value); 
-                }
-            }
+            get => _dictionaryOfProperties.Values;
         }
 
         public object? Property(string name)
         {
-            IProperty? property = _properties.Find(p => p.Name == name);
-            if (property == null)
+            if(_dictionaryOfProperties.TryGetValue(name, out IProperty? prop))
             {
-                throw new Exception($"Property '{name}' not found.");
+                return prop.Value;
             }
-            return property.Value;
+            throw new Exception($"Property '{name}' not found.");
         }
 
         public string ToJson()
         {
-            return _properties.ToJson();
+            return _dictionaryOfProperties.ToJson();
+        }
+
+        private void AddProperty(IProperty property)
+        {
+            if (!_dictionaryOfProperties.ContainsKey(property.Name))
+            {
+                _dictionaryOfProperties.Add(property.Name, property);
+            }
         }
     }
 }

@@ -8,8 +8,6 @@ Notes: >-
 Extends: OrderedCollection, CollectionPage
 Properties:
   - startIndex
-  - OrderedCollection
-  - CollectionPage
 Example: >-
   {
     "@context": "https://www.w3.org/ns/activitystreams",

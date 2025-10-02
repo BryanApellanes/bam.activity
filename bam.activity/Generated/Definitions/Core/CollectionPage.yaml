@@ -10,7 +10,6 @@ Properties:
   - partOf
   - next
   - prev
-  - Collection
 Example: >-
   {
     "@context": "https://www.w3.org/ns/activitystreams",

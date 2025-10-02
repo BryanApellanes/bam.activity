@@ -1,19 +1,20 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Tombstone : Object, ITombstone
     {
         public Tombstone(IdHost idHost) : base(idHost)
         {
-            this.Property("formerType", null, false);
-            this.Property("deleted", null, true);
-            this.Property("Object", null, true);
+            this.InitProperty("formerType", null, false, "Object");
+            this.InitProperty("deleted", null, true, "xsd:dateTime");
         }
 
-        public object? FormerType
+        public Range<Object>? FormerType
         {
             get
             {
-                return Property("formerType");
+                return Property("formerType") as Range<Object>;
             }
             set
             {
@@ -21,27 +22,15 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Deleted
+        public Range<DateTime>? Deleted
         {
             get
             {
-                return Property("deleted");
+                return Property("deleted") as Range<DateTime>;
             }
             set
             {
                 Property("deleted", value);
-            }
-        }
-    
-        public object? Object
-        {
-            get
-            {
-                return Property("Object");
-            }
-            set
-            {
-                Property("Object", value);
             }
         }
     

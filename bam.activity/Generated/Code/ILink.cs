@@ -1,16 +1,18 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public interface ILink
     {
 
-        public object? Href { get; set; }
-        public object? Rel { get; set; }
-        public object? MediaType { get; set; }
-        public object? Name { get; set; }
-        public object? Hreflang { get; set; }
-        public object? Height { get; set; }
-        public object? Width { get; set; }
-        public object? Preview { get; set; }
+        public Range<string>? Href { get; set; }
+        public Range<string>? Rel { get; set; }
+        public Object? MediaType { get; set; }
+        public Range<string>? Name { get; set; }
+        public Range<string>? Hreflang { get; set; }
+        public Range<ulong>? Height { get; set; }
+        public Range<ulong>? Width { get; set; }
+        public Range<Link, Object>? Preview { get; set; }
 
     }
 }

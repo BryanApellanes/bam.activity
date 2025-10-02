@@ -1,20 +1,21 @@
+using System;
+
 namespace Bam.Activity.Vocabulary
 {
     public class Question : IntransitiveActivity, IQuestion
     {
         public Question(IdHost idHost) : base(idHost)
         {
-            this.Property("oneOf", null, false);
-            this.Property("anyOf", null, false);
-            this.Property("closed", null, false);
-            this.Property("IntransitiveActivity", null, true);
+            this.InitProperty("oneOf", null, false, "Object", "Link");
+            this.InitProperty("anyOf", null, false, "Object", "Link");
+            this.InitProperty("closed", null, false, "Object", "Link");
         }
 
-        public object? OneOf
+        public Range<Object, Link>? OneOf
         {
             get
             {
-                return Property("oneOf");
+                return Property("oneOf") as Range<Object, Link>;
             }
             set
             {
@@ -22,11 +23,11 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? AnyOf
+        public Range<Object, Link>? AnyOf
         {
             get
             {
-                return Property("anyOf");
+                return Property("anyOf") as Range<Object, Link>;
             }
             set
             {
@@ -34,27 +35,15 @@ namespace Bam.Activity.Vocabulary
             }
         }
     
-        public object? Closed
+        public Range<Object, Link>? Closed
         {
             get
             {
-                return Property("closed");
+                return Property("closed") as Range<Object, Link>;
             }
             set
             {
                 Property("closed", value);
-            }
-        }
-    
-        public object? IntransitiveActivity
-        {
-            get
-            {
-                return Property("IntransitiveActivity");
-            }
-            set
-            {
-                Property("IntransitiveActivity", value);
             }
         }
     
