@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IVideo
+    public partial interface IVideo
     {
 
 

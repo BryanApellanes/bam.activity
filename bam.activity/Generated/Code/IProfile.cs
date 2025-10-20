@@ -2,10 +2,10 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IProfile
+    public partial interface IProfile
     {
 
-        public Range<Object>? Describes { get; set; }
+        public Object? Describes { get; set; }
 
     }
 }

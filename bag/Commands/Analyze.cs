@@ -1,6 +1,4 @@
 ﻿using Bam;
-using Bam.Activity;
-using Bam.Activity.Vocabulary;
 using Bam.Console;
 using Bam.Data.Repositories;
 using Bam.DependencyInjection;
@@ -27,20 +25,6 @@ namespace Bag.Commands
             Configurer.ConfigureServiceRegistry(serviceRegistry);
 
             return base.Configure(serviceRegistry);
-        }
-
-        [ConsoleCommand("Show ranges from generated types")]
-        [MenuItem]
-        public async Task ShowRangesFromGeneratedTypes()
-        {
-            foreach(Type type in typeof(VocabularyObjectRoot).Assembly.GetTypes().Where(t=> t.ExtendsType(typeof(VocabularyObjectRoot))))
-            {
-                Message.PrintLine("Type: {0}", type.Name);
-                foreach(IProperty property in type.Construct<VocabularyObjectRoot>(new IdHost("https://example.com")).Properties)
-                {
-                    Message.PrintLine("  {0} : {1}", property.Name, string.Join(", ", property.Range));
-                }
-            }
         }
 
         [ConsoleCommand("Show extends from yaml definitions")]

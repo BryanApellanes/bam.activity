@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IArticle
+    public partial interface IArticle
     {
 
 

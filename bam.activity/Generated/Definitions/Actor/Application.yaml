@@ -3,9 +3,10 @@ Uri: https://www.w3.org/ns/activitystreams#Application
 Notes: Describes a software application.
 Extends: Object
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Application",
-    "name": "Exampletron 3000"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Application",
+      "name": "Exampletron 3000"
+    }

@@ -3,14 +3,15 @@ Uri: https://www.w3.org/ns/activitystreams#Audio
 Notes: Represents an audio document of any kind.
 Extends: Document
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Audio",
-    "name": "Interview With A Famous Technologist",
-    "url": {
-      "type": "Link",
-      "href": "http://example.org/podcast.mp3",
-      "mediaType": "audio/mp3"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Audio",
+      "name": "Interview With A Famous Technologist",
+      "url": {
+        "type": "Link",
+        "href": "http://example.org/podcast.mp3",
+        "mediaType": "audio/mp3"
+      }
     }
-  }

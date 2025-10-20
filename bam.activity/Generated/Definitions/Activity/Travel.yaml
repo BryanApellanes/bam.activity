@@ -6,21 +6,22 @@ Notes: >-
                 origin are not specified, either can be determined by context.
 Extends: IntransitiveActivity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Sally went home from work",
-    "type": "Travel",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "target": {
-      "type": "Place",
-      "name": "Home"
-    },
-    "origin": {
-      "type": "Place",
-      "name": "Work"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally went home from work",
+      "type": "Travel",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "target": {
+        "type": "Place",
+        "name": "Home"
+      },
+      "origin": {
+        "type": "Place",
+        "name": "Work"
+      }
     }
-  }

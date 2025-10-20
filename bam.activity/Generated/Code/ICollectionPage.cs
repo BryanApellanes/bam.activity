@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface ICollectionPage
+    public partial interface ICollectionPage
     {
 
         public Range<Link, Collection>? PartOf { get; set; }

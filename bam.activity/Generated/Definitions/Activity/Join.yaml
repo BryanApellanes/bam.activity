@@ -6,17 +6,18 @@ Notes: >-
                 origin typically have no defined meaning.
 Extends: Activity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Sally joined a group",
-    "type": "Join",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "object": {
-      "type": "Group",
-      "name": "A Simple Group"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally joined a group",
+      "type": "Join",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": {
+        "type": "Group",
+        "name": "A Simple Group"
+      }
     }
-  }

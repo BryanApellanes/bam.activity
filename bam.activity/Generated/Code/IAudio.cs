@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IAudio
+    public partial interface IAudio
     {
 
 

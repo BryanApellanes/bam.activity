@@ -13,6 +13,6 @@ namespace Bag
         public string Notes { get; set; }
         public string Extends { get; set; }
         public HashSet<string> Properties { get; set; } = new HashSet<string>();
-        public string Example { get; set; }
+        public List<string> Examples { get; set; } = new List<string>();
     }
 }

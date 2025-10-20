@@ -1,6 +1,7 @@
 ﻿using Bam;
 using Bam.Activity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,20 @@ namespace bam.Activity.Vocabulary
         public string ToJson()
         {
             return Value == null ? "null" : Value.ToJson();
+        }
+
+        public string ToJsonProperty()
+        {
+            return $"\"{Name}\": {ToString()}";
+        }
+
+        public override string ToString()
+        {
+            if(Value is IList list)
+            {
+                return $"{Name}: [{string.Join(", ", list.Cast<object?>().Select(v => v == null ? "null" : v.ToJson()).ToArray())}]";
+            }
+            return $"{Name}: {ToJson()}";
         }
     }
 }

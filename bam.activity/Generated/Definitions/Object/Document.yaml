@@ -3,10 +3,11 @@ Uri: https://www.w3.org/ns/activitystreams#Document
 Notes: Represents a document of any kind.
 Extends: Object
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Document",
-    "name": "4Q Sales Forecast",
-    "url": "http://example.org/4q-sales-forecast.pdf"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Document",
+      "name": "4Q Sales Forecast",
+      "url": "http://example.org/4q-sales-forecast.pdf"
+    }

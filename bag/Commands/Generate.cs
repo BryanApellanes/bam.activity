@@ -314,8 +314,7 @@ namespace Bag.Commands
                     }
                     else if (cellText.Trim().StartsWith("Example"))
                     {
-                        CQ exampleText = CQ.Create(cells[i])["pre"];
-                        vocabulary.Example = exampleText.Text().Trim();
+                        CQ exampleText = CQ.Create(cells[i])["pre"].Each(d=> vocabulary.Examples.Add(CQ.Create(d).Text().Trim()));
                     }
                     else if (cellText.Equals("Notes:"))
                     {

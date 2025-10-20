@@ -6,17 +6,18 @@ Notes: >-
               object property is therefore inappropriate for these activities.
 Extends: Activity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Travel",
-    "summary": "Sally went to work",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "target": {
-      "type": "Place",
-      "name": "Work"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Travel",
+      "summary": "Sally went to work",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "target": {
+        "type": "Place",
+        "name": "Work"
+      }
     }
-  }

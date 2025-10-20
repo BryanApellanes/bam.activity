@@ -5,18 +5,19 @@ Notes: >-
                 object. If specified, the origin indicates the context from which the object was deleted.
 Extends: Activity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Sally deleted a note",
-    "type": "Delete",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "object": "http://example.org/notes/1",
-    "origin": {
-      "type": "Collection",
-      "name": "Sally's Notes"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally deleted a note",
+      "type": "Delete",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": "http://example.org/notes/1",
+      "origin": {
+        "type": "Collection",
+        "name": "Sally's Notes"
+      }
     }
-  }

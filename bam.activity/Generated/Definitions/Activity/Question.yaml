@@ -6,24 +6,27 @@ Properties:
   - oneOf
   - anyOf
   - closed
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Question",
-    "name": "What is the answer?",
-    "oneOf": [
-      {
-        "type": "Note",
-        "name": "Option A"
-      },
-      {
-        "type": "Note",
-        "name": "Option B"
-      }
-    ]
-  }{
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Question",
-    "name": "What is the answer?",
-    "closed": "2016-05-10T00:00:00Z"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Question",
+      "name": "What is the answer?",
+      "oneOf": [
+        {
+          "type": "Note",
+          "name": "Option A"
+        },
+        {
+          "type": "Note",
+          "name": "Option B"
+        }
+      ]
+    }
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Question",
+      "name": "What is the answer?",
+      "closed": "2016-05-10T00:00:00Z"
+    }

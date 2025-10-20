@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IActivity
+    public partial interface IActivity
     {
 
         public Range<Object, Link>? Actor { get; set; }

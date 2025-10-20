@@ -4,13 +4,14 @@ Notes: A Profile is a content object that describes another Object, typically us
 Extends: Object
 Properties:
   - describes
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Profile",
-    "summary": "Sally's Profile",
-    "describes": {
-      "type": "Person",
-      "name": "Sally Smith"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Profile",
+      "summary": "Sally's Profile",
+      "describes": {
+        "type": "Person",
+        "name": "Sally Smith"
+      }
     }
-  }

@@ -3,9 +3,10 @@ Uri: https://www.w3.org/ns/activitystreams#Group
 Notes: Represents a formal or informal collective of Actors.
 Extends: Object
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Group",
-    "name": "Big Beards of Austin"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Group",
+      "name": "Big Beards of Austin"
+    }

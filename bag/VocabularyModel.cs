@@ -14,6 +14,7 @@
 
         public string Namespace { get; set; }
         public VocabularyTypeDefinition Definition { get; set; }
+        public string Notes => Definition.Notes != null ? Definition.Notes.Replace("\n", " ").Replace("\r", " ").Replace("\"", "'") : string.Empty;
         public VocabularyLookup Lookup { get; set; }
         public Dictionary<string, string> PropertyTypeMap { get; set; }
 
@@ -29,13 +30,8 @@
         {
             get
             {
-                return GetExtends();
+                return GetInterfaceList();
             }
-        }
-
-        public string Extends
-        {
-            get => Definition.Extends == null || Definition.Equals("Object") ? VocabularyObjectRoot : InterfaceList;
         }
 
         public PropertyModel[] Properties
@@ -43,9 +39,16 @@
             get => GetPropertyModels();
         }
 
-        private string GetExtends()
+        public List<string> Examples => Definition.Examples.Select(e=> e.Replace("\"", "\"\"")).ToList();
+
+
+        private string GetInterfaceList()
         {
-            if (Definition.Extends == null || Definition.Equals("Object"))
+            if (Definition.Name.Equals("Link"))
+            {
+                return "Object, ILink";
+            }
+            if (Definition.Extends == null || Definition.Name.Equals("Object"))
             {
                 return VocabularyObjectRoot;
             }
@@ -53,16 +56,16 @@
             {
                 List<string> values = new List<string>();
                 string[] strings = Definition.Extends.Split(",");
-                if(strings.Length > 1)
+                if (strings.Length > 1)
                 {
-                    values.Add(VocabularyObjectRoot);
+                    values.Add("Object");
                     values.AddRange(strings.Select(e => $"I{e.Trim()}").ToArray());
                 }
                 else
                 {
                     values.AddRange(strings.Select(e => $"{e.Trim()}").ToArray());
                 }
-                    
+
                 values.Add($"I{ClassName}");
                 return string.Join(", ", values.ToArray());
             }

@@ -2,7 +2,7 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public interface IQuestion
+    public partial interface IQuestion
     {
 
         public Range<Object, Link>? OneOf { get; set; }

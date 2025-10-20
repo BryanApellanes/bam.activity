@@ -3,11 +3,12 @@ Uri: https://www.w3.org/ns/activitystreams#Mention
 Notes: A specialized Link that represents an @mention.
 Extends: Link
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Mention of Joe by Carrie in her note",
-    "type": "Mention",
-    "href": "http://example.org/joe",
-    "name": "Joe"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Mention of Joe by Carrie in her note",
+      "type": "Mention",
+      "href": "http://example.org/joe",
+      "name": "Joe"
+    }

@@ -9,4 +9,8 @@
     <ProjectReference Include="..\..\bam.base\bam.base\bam.base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Generated\" />
+  </ItemGroup>
+
 </Project>

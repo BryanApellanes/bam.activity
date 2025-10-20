@@ -11,17 +11,20 @@ Properties:
   - longitude
   - radius
   - units
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Place",
-    "name": "Work"
-  }{
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Place",
-    "name": "Fresno Area",
-    "latitude": 36.75,
-    "longitude": 119.7667,
-    "radius": 15,
-    "units": "miles"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Place",
+      "name": "Work"
+    }
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Place",
+      "name": "Fresno Area",
+      "latitude": 36.75,
+      "longitude": 119.7667,
+      "radius": 15,
+      "units": "miles"
+    }

@@ -6,17 +6,18 @@ Notes: >-
                 target and origin typically have no defined meaning.
 Extends: Activity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Sally followed John",
-    "type": "Follow",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "object": {
-      "type": "Person",
-      "name": "John"
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally followed John",
+      "type": "Follow",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": {
+        "type": "Person",
+        "name": "John"
+      }
     }
-  }

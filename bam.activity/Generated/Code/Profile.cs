@@ -2,25 +2,43 @@ using System;
 
 namespace Bam.Activity.Vocabulary
 {
-    public class Profile : Object, IProfile
+    /// <summary>
+    /// A Profile is a content object that describes another Object, typically used to describe Actor Type objects. The describes property is used to reference the object being described by the profile.
+    /// </summary>
+    public partial class Profile : Object, IProfile
     {
         public Profile(IdHost idHost) : base(idHost)
         {
+            this.StartCtorInit(idHost);
             this.InitProperty("describes", null, true, "Object");
+
+            this.Example(@"{
+  ""@context"": ""https://www.w3.org/ns/activitystreams"",
+  ""type"": ""Profile"",
+  ""summary"": ""Sally's Profile"",
+  ""describes"": {
+    ""type"": ""Person"",
+    ""name"": ""Sally Smith""
+  }
+}");
+            this.EndCtorInit(idHost);
         }
 
-        public Range<Object>? Describes
+        /// <summary>
+        /// On a Profile object, the             describes property identifies the object described by the Profile.
+        /// </summary>
+        public Object? Describes
         {
             get
             {
-                return Property("describes") as Range<Object>;
+                return Property<Object>("describes");
             }
             set
             {
                 Property("describes", value);
             }
         }
-    
+
 
     }
 }

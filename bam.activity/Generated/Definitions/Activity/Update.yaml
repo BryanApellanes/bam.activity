@@ -3,14 +3,15 @@ Uri: https://www.w3.org/ns/activitystreams#Update
 Notes: "Indicates that the actor has updated the\n                object. Note, however, that this vocabulary does not define a mechanism for describing the actual set of modifications made to object.\n              \n              \n                The target and\n                origin typically have no defined meaning."
 Extends: Activity
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "summary": "Sally updated her note",
-    "type": "Update",
-    "actor": {
-      "type": "Person",
-      "name": "Sally"
-    },
-    "object": "http://example.org/notes/1"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally updated her note",
+      "type": "Update",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": "http://example.org/notes/1"
+    }

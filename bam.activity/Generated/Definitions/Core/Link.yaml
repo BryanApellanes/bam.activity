@@ -15,12 +15,13 @@ Properties:
   - height
   - width
   - preview
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Link",
-    "href": "http://example.org/abc",
-    "hreflang": "en",
-    "mediaType": "text/html",
-    "name": "An example link"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Link",
+      "href": "http://example.org/abc",
+      "hreflang": "en",
+      "mediaType": "text/html",
+      "name": "An example link"
+    }

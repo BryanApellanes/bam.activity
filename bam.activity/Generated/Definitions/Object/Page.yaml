@@ -3,10 +3,11 @@ Uri: https://www.w3.org/ns/activitystreams#Page
 Notes: Represents a Web Page.
 Extends: Document
 Properties: []
-Example: >-
-  {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Page",
-    "name": "Omaha Weather Report",
-    "url": "http://example.org/weather-in-omaha.html"
-  }
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Page",
+      "name": "Omaha Weather Report",
+      "url": "http://example.org/weather-in-omaha.html"
+    }

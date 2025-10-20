@@ -7,17 +7,24 @@ namespace Bag
         public PropertyModel(VocabularyPropertyDefinition definition, Dictionary<string, string> propertyTypeMap)
         {
             Definition = definition;
+            if(definition.Range.Count > 0)
+            {
+                RangeParams = string.Join(", ", definition.Range.Select(r => $"\"{r}\"").ToArray());
+            }
+            else
+            {
+                RangeParams = "string.Empty";
+            }
+
             if (Definition.Range.Count == 0)
             {
-                this.Range = "\"\"";
                 this.ReturnType = "Object";
             }
             else if (Definition.Range.Count == 1)
             {
-                this.Range = $"\"{Definition.Range[0]}\"";
                 if (propertyTypeMap.ContainsKey(Definition.Range[0]))
                 {
-                    this.ReturnType = $"Range<{propertyTypeMap[Definition.Range[0]]}>";
+                    this.ReturnType = $"{propertyTypeMap[Definition.Range[0]]}";
                 }
                 else
                 {
@@ -26,7 +33,6 @@ namespace Bag
             }
             else
             {
-                this.Range = string.Join(", ", Definition.Range.Select(v => $"\"{v}\""));
                 HashSet<string> types = new HashSet<string>();
                 foreach (string r in Definition.Range)
                 {
@@ -40,18 +46,30 @@ namespace Bag
                         types.Add("Object");
                     }
                 }
-                this.ReturnType = $"Range<{string.Join(", ", types.ToArray())}>";
+                if (types.Count == 1)
+                {
+                    this.ReturnType = types.First();
+                }
+                else
+                {
+                    this.ReturnType = $"Range<{string.Join(", ", types.ToArray())}>";
+                }
             }
         }
 
         public VocabularyPropertyDefinition Definition { get; }
         public Dictionary<string, string> PropertyTypeMap { get; set; }
-
+        public string Notes => Definition.Notes != null ? Definition.Notes.Replace("\n", " ").Replace("\r", " ").Replace("\"", "'") : string.Empty;
         public string PropertyName => Definition.Name;
         public string ClassPropertyName => PropertyName.PascalCase();
-        public string Range { get; set; }
         public string IsFunctional => Definition.IsFunctional ? "true": "false";
 
+        public string RangeParams { get; set; }
         public string ReturnType { get; set; }
+
+        public override string ToString()
+        {
+            return PropertyName;
+        }
     }
 }

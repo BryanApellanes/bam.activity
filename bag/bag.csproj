@@ -30,7 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\bam.console\bam.console\bam.console.csproj" />
     <ProjectReference Include="..\..\bam.generators\bam.generators\bam.generators.csproj" />
-    <ProjectReference Include="..\bam.activity\bam.activity.csproj" />
   </ItemGroup>
 
   <ItemGroup>
