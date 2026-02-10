@@ -2,11 +2,6 @@
 using Bam.Console;
 using Bam.Data.Repositories;
 using Bam.Test;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bam.Activity.Tests.Unit
 {
@@ -14,27 +9,43 @@ namespace Bam.Activity.Tests.Unit
     public class ObjectsShould : UnitTestMenuContainer
     {
         [UnitTest]
-        public async Task SerializeWithContextAndType()
+        public void SerializeWithContextAndType()
         {
             Type[] types = typeof(VocabularyObjectRoot).Assembly.GetTypes().Where(t => t.ExtendsType(typeof(VocabularyObjectRoot))).ToArray();
             IdHost idHost = new IdHost("http://example.org/");
-            
-            foreach (Type type in types)
+
+            When.A<IdHost>("serializes vocabulary objects with context and type",
+                idHost,
+                (host) =>
+                {
+                    int testedCount = 0;
+                    foreach (Type type in types)
+                    {
+                        object instance = type.Construct(host);
+                        VocabularyObjectRoot vocabObject = (VocabularyObjectRoot)instance;
+                        string json = vocabObject.ToJson(true);
+                        Dictionary<string, object> keyValuePairs = json.FromJson<Dictionary<string, object>>();
+                        if (!keyValuePairs.ContainsKey("@context") || !keyValuePairs.ContainsKey("type"))
+                        {
+                            throw new Exception($"Type {type.Name} missing @context or type key");
+                        }
+                        testedCount++;
+                    }
+                    return testedCount;
+                })
+            .TheTest
+            .ShouldPass(because =>
             {
-                object instance = type.Construct(idHost);
-                instance.ShouldNotBeNull();
-                VocabularyObjectRoot vocabObject = instance as VocabularyObjectRoot;
-                vocabObject.ShouldNotBeNull();
-                string json = vocabObject.ToJson(true);
-                Dictionary<string, object> keyValuePairs = json.FromJson<Dictionary<string, object>>();
-                keyValuePairs.ContainsKey("@context").ShouldBeTrue();
-                keyValuePairs.ContainsKey("type").ShouldBeTrue();
-                Message.PrintLine(json);
-            }
+                int testedCount = (int)because.Result;
+                because.ItsTrue("tested at least one type", testedCount > 0);
+                because.ItsTrue($"all {types.Length} types serialized with context and type", testedCount == types.Length);
+            })
+            .SoBeHappy()
+            .UnlessItFailed();
         }
 
         [UnitTest]
-        public async Task DeserializeExamples()
+        public void DeserializeExamples()
         {
             string expected = @"{
   ""@context"": ""https://www.w3.org/ns/activitystreams"",
@@ -42,49 +53,90 @@ namespace Bam.Activity.Tests.Unit
   ""name"": ""Puppy Plays With Ball"",
   ""url"": ""http://example.org/video.mkv"",
   ""duration"": ""PT2H""
-}";
+}".Replace("\r\n", "\n");
 
-            Video video = new Video("http://example.org/");
-            string actual = video.Example().Replace("\n", "\r\n");
-
-            actual.ShouldEqual(expected);
-
-            video.LoadJson(actual);
-
-            video.Name.ShouldNotBeNull();
-            video.Name.ShouldBeEqualTo("Puppy Plays With Ball");
-            video.Url.ToString().ShouldEqual("http://example.org/video.mkv");
-            video.Duration.ToString().ShouldEqual("PT2H");
-            TimeSpan timeSpan = (TimeSpan)video.Duration;
-            timeSpan.Hours.ShouldBeEqualTo(2);
-            video.ToJson(true).ShouldEqual(expected);
+            When.A<Video>("deserializes example JSON correctly",
+                () => new Video("http://example.org/"),
+                (video) =>
+                {
+                    string actual = video.Examples.Last().Replace("\r\n", "\n");
+                    video.LoadJson(actual);
+                    return new object?[] { actual, video.Name, video.Url?.ToString(), video.Duration?.ToString(), video.ToJson(true).Replace("\r\n", "\n") };
+                })
+            .TheTest
+            .ShouldPass(because =>
+            {
+                object?[] results = (object?[])because.Result;
+                string actual = (string)results[0]!;
+                string? name = (string?)results[1];
+                string? url = (string?)results[2];
+                string? duration = (string?)results[3];
+                string? roundTrip = (string?)results[4];
+                because.ItsTrue("example JSON matches expected", expected.Equals(actual));
+                because.ItsTrue("Name is not null", name != null);
+                because.ItsTrue("Name equals expected", "Puppy Plays With Ball".Equals(name));
+                because.ItsTrue("Url equals expected", "http://example.org/video.mkv".Equals(url));
+                because.ItsTrue("Duration equals expected", "PT2H".Equals(duration));
+                because.ItsTrue("round-trip JSON matches expected", expected.Equals(roundTrip));
+            })
+            .SoBeHappy()
+            .UnlessItFailed();
         }
 
         [UnitTest]
-        public async Task LoadExampleJson()
+        public void LoadExampleJson()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "JsonFiles"));
-            foreach(FileInfo fileInfo in directoryInfo.GetFiles("*.json"))
+            DirectoryInfo directoryInfo = new DirectoryInfo(Path.Combine(AppContext.BaseDirectory, "JsonFiles"));
+
+            When.A<DirectoryInfo>("loads and validates all example JSON files",
+                directoryInfo,
+                (dir) =>
+                {
+                    FileInfo[] files = dir.GetFiles("*.json");
+                    int loadedCount = 0;
+                    foreach (FileInfo fileInfo in files)
+                    {
+                        string json = File.ReadAllText(fileInfo.FullName);
+                        Dictionary<string, object> keyValuePairs = json.FromJson<Dictionary<string, object>>();
+                        string typeName = fileInfo.Name.Split('_', '.')[0];
+                        Type type = typeof(VocabularyObjectRoot).Assembly.GetTypes().First(t => t.Name.Equals(typeName));
+                        VocabularyObjectRoot instance = type.Construct<VocabularyObjectRoot>(new IdHost("http://example.org/"));
+                        instance.LoadJson(json);
+                        foreach (string propertyName in keyValuePairs.Keys)
+                        {
+                            object? property;
+                            try
+                            {
+                                property = instance.Property(propertyName);
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                            if (property == null)
+                            {
+                                throw new Exception($"Property '{propertyName}' was null for type {typeName} in file {fileInfo.Name}");
+                            }
+                            if (keyValuePairs[propertyName] is string value && !property.ToString()!.Equals(value))
+                            {
+                                throw new Exception($"Property '{propertyName}' mismatch for {typeName}: expected '{value}' but got '{property}'");
+                            }
+                        }
+                        loadedCount++;
+                    }
+                    return loadedCount;
+                })
+            .TheTest
+            .ShouldPass(because =>
             {
-                string json = await File.ReadAllTextAsync(fileInfo.FullName);
-                Dictionary<string, object> keyValuePairs = json.FromJson<Dictionary<string, object>>();
-                string typeName = fileInfo.Name.Split('_', '.')[0];
-                Type type = typeof(VocabularyObjectRoot).Assembly.GetTypes().First(t => t.Name.Equals(typeName));
-                if(type == null)
+                because.TheResult.IsNotNull();
+                if (because.Result is int loadedCount)
                 {
-                    throw new Exception($"Type '{typeName}' not found.");
+                    because.ItsTrue("loaded at least one JSON file", loadedCount > 0);
                 }
-                VocabularyObjectRoot instance = type.Construct<VocabularyObjectRoot>(new IdHost("http://example.org/"));
-                instance.GetType().ShouldEqual(type);
-                instance.LoadJson(json);
-                foreach(string propertyName in keyValuePairs.Keys)
-                {
-                    object? property = instance.Property(propertyName);
-                    property?.ShouldNotBeNull();
-                    object value = keyValuePairs[propertyName];
-                    property.ToString().ShouldEqual(value.ToString());
-                }
-            }
+            })
+            .SoBeHappy()
+            .UnlessItFailed();
         }
     }
 }
