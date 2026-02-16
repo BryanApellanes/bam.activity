@@ -187,7 +187,20 @@ namespace Bam.Activity.Vocabulary
 
             foreach(string propertyName in keyValuePairs.Keys)
             {
-                Property(propertyName, keyValuePairs[propertyName]);
+                object value = keyValuePairs[propertyName];
+                if (value is JObject jObject && jObject["type"] != null)
+                {
+                    string typeName = jObject["type"].ToString();
+                    Type nestedType = ObjectFactory.ResolveType(typeName);
+                    if (nestedType != null)
+                    {
+                        VocabularyObjectRoot nestedObject = nestedType.Construct<VocabularyObjectRoot>(_idHost);
+                        nestedObject.LoadJson(jObject.ToString());
+                        Property(propertyName, nestedObject);
+                        continue;
+                    }
+                }
+                Property(propertyName, value);
             }
         }
 
@@ -206,11 +219,36 @@ namespace Bam.Activity.Vocabulary
             {
                 if (property.Value != null)
                 {
-                    keyValuePairs.Add(property.Name, property.Value);
+                    keyValuePairs.Add(property.Name, ResolveValue(property.Value));
                 }
             }
 
             return keyValuePairs;
+        }
+
+        private static object ResolveValue(object value)
+        {
+            if (value is VocabularyObjectRoot nested)
+            {
+                return nested.GetValueDictionary();
+            }
+
+            Type valueType = value.GetType();
+            if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<,>))
+            {
+                object v1 = valueType.GetProperty("Value")?.GetValue(value);
+                object v2 = valueType.GetProperty("Value2")?.GetValue(value);
+                if (v1 is VocabularyObjectRoot nestedV1)
+                {
+                    return nestedV1.GetValueDictionary();
+                }
+                if (v2 is VocabularyObjectRoot nestedV2)
+                {
+                    return nestedV2.GetValueDictionary();
+                }
+            }
+
+            return value;
         }
     }
 }

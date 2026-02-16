@@ -10,5 +10,6 @@ namespace Bam.Activity.Vocabulary
     {
         public static implicit operator T1(Range<T1> range) => range.Value;
         public T1 Value { get; set; }
+        public bool HasValue => Value != null;
     }
 }

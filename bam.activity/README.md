@@ -129,7 +129,4 @@ TimeSpan timeSpan = (TimeSpan)new Duration("PT5M30S"); // 5 minutes 30 seconds
 
 ## Known Gaps / Not Yet Implemented
 
-- **`IdFormatter.FormatId()`** throws `NotImplementedException` -- the ID formatting logic for vocabulary objects is not yet implemented.
-- **`ObjectFactory`** has no factory methods -- it holds an `IdHost` and `IIdFormatter` but does not yet provide object creation methods.
-- The `Range<T1, T2>` type uses implicit conversion operators but does not implement full union-type semantics; only `Value` and `Value2` are accessible.
-- No built-in support for JSON-LD processing beyond the `@context` and `type` fields.
+None currently tracked.

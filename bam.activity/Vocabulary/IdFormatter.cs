@@ -12,10 +12,21 @@ namespace Bam.Activity.Vocabulary
         {
             this.IdHost = idHost;
         }
+
         public IdHost IdHost { get; set; }
+
         public string FormatId(string id)
         {
-            throw new NotImplementedException();
+            if (Uri.IsWellFormedUriString(id, UriKind.Absolute))
+            {
+                return id;
+            }
+            return $"{IdHost.Host}/{id}";
+        }
+
+        public string FormatId(string type, string id)
+        {
+            return $"{IdHost.Host}/{type}/{id}";
         }
     }
 }

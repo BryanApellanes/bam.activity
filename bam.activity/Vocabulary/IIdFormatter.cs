@@ -9,5 +9,6 @@ namespace Bam.Activity.Vocabulary
     public interface IIdFormatter
     {
         string FormatId(string id);
+        string FormatId(string type, string id);
     }
 }
