@@ -11,7 +11,7 @@ namespace Bam.Activity.Vocabulary.Converters
 {
     public class DurationTypeConverter : TypeConverter
     {
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
         {
             // Indicate that this converter can convert from a string
             if (sourceType == typeof(string))
@@ -20,7 +20,7 @@ namespace Bam.Activity.Vocabulary.Converters
             }
             return base.CanConvertFrom(context, sourceType);
         }
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
         {
             // Implement the conversion logic from string to Duration
             if (value is string stringValue)
@@ -37,7 +37,7 @@ namespace Bam.Activity.Vocabulary.Converters
             return base.ConvertFrom(context, culture, value);
         }
 
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
         {
             // Indicate that this converter can convert to a string
             if (destinationType == typeof(string))
@@ -47,7 +47,7 @@ namespace Bam.Activity.Vocabulary.Converters
             return base.CanConvertTo(context, destinationType);
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
         {
             // Implement the conversion logic from Duration to string
             if (destinationType == typeof(string) && value is Duration duration)

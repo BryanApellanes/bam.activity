@@ -38,7 +38,7 @@ namespace Bam.Activity.Vocabulary
             this.Value = XmlConvert.ToString(value) ;
         }
 
-        public string Value { get; set; }
+        public string Value { get; set; } = null!;
 
         public override string ToString()
         {

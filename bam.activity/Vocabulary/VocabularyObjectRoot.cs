@@ -83,7 +83,7 @@ namespace Bam.Activity.Vocabulary
                 }
                 else
                 {
-                    property.Add(value);
+                    property.Add(value!);
                 }
             }
             property.Range = new List<string>(range);
@@ -107,7 +107,7 @@ namespace Bam.Activity.Vocabulary
                 }
                 else
                 {
-                    property.Add(value);
+                    property.Add(value!);
                 }
             }
         }
@@ -137,7 +137,7 @@ namespace Bam.Activity.Vocabulary
             {
                 if(prop.Value == null)
                 {
-                    return default;
+                    return default!;
                 }
                 if(prop.Value.GetType() == typeof(T))
                 {
@@ -146,7 +146,7 @@ namespace Bam.Activity.Vocabulary
                 TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(T));
                 if (typeConverter.CanConvertFrom(prop.Value.GetType()))
                 {
-                    return (T)typeConverter.ConvertFrom(prop.Value);
+                    return (T)typeConverter.ConvertFrom(prop.Value)!;
                 }
             }
             throw new Exception($"Property '{name}' not found.");
@@ -190,8 +190,8 @@ namespace Bam.Activity.Vocabulary
                 object value = keyValuePairs[propertyName];
                 if (value is JObject jObject && jObject["type"] != null)
                 {
-                    string typeName = jObject["type"].ToString();
-                    Type nestedType = ObjectFactory.ResolveType(typeName);
+                    string typeName = jObject["type"]!.ToString();
+                    Type? nestedType = ObjectFactory.ResolveType(typeName);
                     if (nestedType != null)
                     {
                         VocabularyObjectRoot nestedObject = nestedType.Construct<VocabularyObjectRoot>(_idHost);
@@ -236,8 +236,8 @@ namespace Bam.Activity.Vocabulary
             Type valueType = value.GetType();
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<,>))
             {
-                object v1 = valueType.GetProperty("Value")?.GetValue(value);
-                object v2 = valueType.GetProperty("Value2")?.GetValue(value);
+                object? v1 = valueType.GetProperty("Value")?.GetValue(value);
+                object? v2 = valueType.GetProperty("Value2")?.GetValue(value);
                 if (v1 is VocabularyObjectRoot nestedV1)
                 {
                     return nestedV1.GetValueDictionary();

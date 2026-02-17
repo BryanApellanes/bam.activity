@@ -9,7 +9,7 @@ namespace Bam.Activity.Vocabulary
     public class Range<T1, T2> : Range<T1>
     {
         private int _activeSlot;
-        private T2 _value2;
+        private T2 _value2 = default!;
 
         public static implicit operator T1(Range<T1, T2> range) => range.Value;
 
@@ -49,9 +49,9 @@ namespace Bam.Activity.Vocabulary
         {
             return _activeSlot switch
             {
-                1 => Value,
-                2 => Value2,
-                _ => null
+                1 => Value!,
+                2 => Value2!,
+                _ => null!
             };
         }
 
@@ -61,7 +61,7 @@ namespace Bam.Activity.Vocabulary
             {
                 1 => typeof(T1),
                 2 => typeof(T2),
-                _ => null
+                _ => null!
             };
         }
 
@@ -84,7 +84,7 @@ namespace Bam.Activity.Vocabulary
             {
                 1 => onT1(Value),
                 2 => onT2(Value2),
-                _ => default
+                _ => default!
             };
         }
 

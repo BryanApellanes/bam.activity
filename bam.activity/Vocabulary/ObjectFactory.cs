@@ -38,7 +38,7 @@ namespace Bam.Activity.Vocabulary
         public IdHost IdHost { get; set; }
         public IIdFormatter IdFormatter { get; set; }
 
-        public T Create<T>(string id = null) where T : VocabularyObjectRoot
+        public T Create<T>(string? id = null) where T : VocabularyObjectRoot
         {
             T instance = typeof(T).Construct<T>(IdHost);
             if (id != null)
@@ -48,9 +48,9 @@ namespace Bam.Activity.Vocabulary
             return instance;
         }
 
-        public VocabularyObjectRoot Create(string typeName, string id = null)
+        public VocabularyObjectRoot Create(string typeName, string? id = null)
         {
-            Type type = ResolveType(typeName);
+            Type? type = ResolveType(typeName);
             if (type == null)
             {
                 throw new ArgumentException($"Unknown vocabulary type: '{typeName}'");
@@ -58,7 +58,7 @@ namespace Bam.Activity.Vocabulary
             return Create(type, id);
         }
 
-        public VocabularyObjectRoot Create(Type type, string id = null)
+        public VocabularyObjectRoot Create(Type type, string? id = null)
         {
             VocabularyObjectRoot instance = type.Construct<VocabularyObjectRoot>(IdHost);
             if (id != null)
@@ -70,19 +70,19 @@ namespace Bam.Activity.Vocabulary
 
         public bool TryCreate(string typeName, out VocabularyObjectRoot result)
         {
-            Type type = ResolveType(typeName);
+            Type? type = ResolveType(typeName);
             if (type == null)
             {
-                result = null;
+                result = null!;
                 return false;
             }
             result = Create(type);
             return true;
         }
 
-        public static Type ResolveType(string typeName)
+        public static Type? ResolveType(string typeName)
         {
-            if (_typeRegistry.Value.TryGetValue(typeName, out Type type))
+            if (_typeRegistry.Value.TryGetValue(typeName, out Type? type))
             {
                 return type;
             }

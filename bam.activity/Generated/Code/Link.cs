@@ -63,7 +63,7 @@ namespace Bam.Activity.Vocabulary
         /// <summary>
         /// When used on a Link, identifies the MIME media type of the referenced resource.                                         When used on an Object, identifies the MIME media type of the value of the content property. If not specified, the content property is assumed to contain text/html content.
         /// </summary>
-        public Object? MediaType
+        public new Object? MediaType
         {
             get
             {
@@ -78,7 +78,7 @@ namespace Bam.Activity.Vocabulary
         /// <summary>
         /// A simple, human-readable, plain-text name for the object. HTML markup MUST NOT be included. The name MAY be expressed using multiple language-tagged values.
         /// </summary>
-        public string? Name
+        public new string? Name
         {
             get
             {
@@ -138,7 +138,7 @@ namespace Bam.Activity.Vocabulary
         /// <summary>
         /// Identifies an entity that provides a preview of this object.
         /// </summary>
-        public Range<Link, Object>? Preview
+        public new Range<Link, Object>? Preview
         {
             get
             {

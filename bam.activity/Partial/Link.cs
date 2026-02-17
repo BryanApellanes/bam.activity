@@ -27,7 +27,7 @@ namespace Bam.Activity.Vocabulary
 
         public override string ToString()
         {
-            return this.Href;
+            return this.Href!;
         }
     }
 }
