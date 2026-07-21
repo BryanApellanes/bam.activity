@@ -1,0 +1,29 @@
+Name: OrderedCollectionPage
+Uri: https://www.w3.org/ns/activitystreams#OrderedCollectionPage
+Notes: >-
+  Used to represent ordered subsets of items from an
+                OrderedCollection. Refer to the
+                Activity Streams 2.0 Core for a complete description of the
+                OrderedCollectionPage object.
+Extends: OrderedCollection, CollectionPage
+Properties:
+  - startIndex
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Page 1 of Sally's notes",
+      "type": "OrderedCollectionPage",
+      "id": "http://example.org/foo?page=1",
+      "partOf": "http://example.org/foo",
+      "orderedItems": [
+        {
+          "type": "Note",
+          "name": "A Simple Note"
+        },
+        {
+          "type": "Note",
+          "name": "Another Simple Note"
+        }
+      ]
+    }

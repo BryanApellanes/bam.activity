@@ -1,0 +1,9 @@
+Name: last
+Uri: https://www.w3.org/ns/activitystreams#last
+Notes: In a paged Collection, indicates the furthest proceeding page of the collection.
+Domain: Collection
+Range:
+  - CollectionPage
+  - Link
+IsFunctional: true
+SubPropertyOf: 

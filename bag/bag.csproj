@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Commands\Templates\AddProperty.hbs" />
+    <None Remove="Commands\Templates\ClassProperty.hbs" />
+    <None Remove="Commands\Templates\Interface.hbs" />
+    <None Remove="Commands\Templates\InterfaceProperty.hbs" />
+    <None Remove="Commands\Templates\Object.hbs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Commands\Templates\AddProperty.hbs" />
+    <EmbeddedResource Include="Commands\Templates\ClassProperty.hbs" />
+    <EmbeddedResource Include="Commands\Templates\Interface.hbs" />
+    <EmbeddedResource Include="Commands\Templates\InterfaceProperty.hbs" />
+    <EmbeddedResource Include="Commands\Templates\Object.hbs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsQuery" Version="1.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\bam.console\bam.console\bam.console.csproj" />
+    <ProjectReference Include="..\..\bam.generators\bam.generators\bam.generators.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="BamVocabularyGenerator.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="PropertyTypeMap.kvp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

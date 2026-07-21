@@ -1,0 +1,9 @@
+Name: bcc
+Uri: https://www.w3.org/ns/activitystreams#bcc
+Notes: Identifies one or more Objects that are part of the private secondary audience of this Object.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

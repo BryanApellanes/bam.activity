@@ -1,0 +1,29 @@
+Name: Move
+Uri: https://www.w3.org/ns/activitystreams#Move
+Notes: >-
+  Indicates that the actor has moved
+                object from origin to
+                target. If the origin or
+                target are not specified, either can be determined by context.
+Extends: Activity
+Properties: []
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally moved a post from List A to List B",
+      "type": "Move",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": "http://example.org/posts/1",
+      "target": {
+        "type": "Collection",
+        "name": "List B"
+      },
+      "origin": {
+        "type": "Collection",
+        "name": "List A"
+      }
+    }

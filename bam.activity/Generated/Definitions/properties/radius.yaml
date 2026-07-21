@@ -1,0 +1,8 @@
+Name: radius
+Uri: https://www.w3.org/ns/activitystreams#radius
+Notes: The radius from the given latitude and longitude for a Place. The units is expressed by the units property. If units is not specified, the default is assumed to be "m" indicating "meters".
+Domain: Place
+Range:
+  - xsd:float
+IsFunctional: true
+SubPropertyOf: 

@@ -1,0 +1,30 @@
+Name: Place
+Uri: https://www.w3.org/ns/activitystreams#Place
+Notes: >-
+  Represents a logical or physical location. See
+                5.3 Representing Places for additional information.
+Extends: Object
+Properties:
+  - accuracy
+  - altitude
+  - latitude
+  - longitude
+  - radius
+  - units
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Place",
+      "name": "Work"
+    }
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Place",
+      "name": "Fresno Area",
+      "latitude": 36.75,
+      "longitude": 119.7667,
+      "radius": 15,
+      "units": "miles"
+    }

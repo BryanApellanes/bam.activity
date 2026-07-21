@@ -1,0 +1,23 @@
+Name: Create
+Uri: https://www.w3.org/ns/activitystreams#Create
+Notes: >-
+  Indicates that the actor has created the
+                  object.
+Extends: Activity
+Properties: []
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally created a note",
+      "type": "Create",
+      "actor": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "object": {
+        "type": "Note",
+        "name": "A Simple Note",
+        "content": "This is a simple note"
+      }
+    }

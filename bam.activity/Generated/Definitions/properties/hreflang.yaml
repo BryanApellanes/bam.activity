@@ -1,0 +1,8 @@
+Name: hreflang
+Uri: https://www.w3.org/ns/activitystreams#hreflang
+Notes: Hints as to the language used by the target resource. Value MUST be a [BCP47] Language-Tag.
+Domain: Link
+Range:
+  - BCP47
+IsFunctional: true
+SubPropertyOf: 

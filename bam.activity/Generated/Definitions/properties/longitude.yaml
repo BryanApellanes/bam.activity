@@ -1,0 +1,8 @@
+Name: longitude
+Uri: https://www.w3.org/ns/activitystreams#longitude
+Notes: The longitude of a place
+Domain: Place
+Range:
+  - xsd:float
+IsFunctional: true
+SubPropertyOf: 

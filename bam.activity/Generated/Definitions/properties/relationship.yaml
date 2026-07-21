@@ -1,0 +1,12 @@
+Name: relationship
+Uri: https://www.w3.org/ns/activitystreams#relationship
+Notes: >-
+  On a Relationship object, the
+              relationship property identifies the kind of relationship that exists between
+              subject and
+              object.
+Domain: Relationship
+Range:
+  - Object
+IsFunctional: false
+SubPropertyOf: 

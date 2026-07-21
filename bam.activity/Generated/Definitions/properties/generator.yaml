@@ -1,0 +1,9 @@
+Name: generator
+Uri: https://www.w3.org/ns/activitystreams#generator
+Notes: Identifies the entity (e.g. an application) that generated the object.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

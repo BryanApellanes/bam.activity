@@ -1,0 +1,8 @@
+Name: type
+Uri: '@type'
+Notes: Identifies the Object or Link type. Multiple values may be specified.
+Domain: ObjectLink
+Range:
+  - anyURI
+IsFunctional: false
+SubPropertyOf: 

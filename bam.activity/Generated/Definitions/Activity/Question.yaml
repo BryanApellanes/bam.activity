@@ -1,0 +1,32 @@
+Name: Question
+Uri: https://www.w3.org/ns/activitystreams#Question
+Notes: "Represents a question being asked. Question objects are an extension of IntransitiveActivity. That is, the Question object is an Activity, but the direct object is the question itself and therefore it would not contain an\n                object property.\n              \n              \n                Either of the anyOf and\n                oneOf properties MAY be used to express possible answers, but a Question object MUST NOT have both properties."
+Extends: IntransitiveActivity
+Properties:
+  - oneOf
+  - anyOf
+  - closed
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Question",
+      "name": "What is the answer?",
+      "oneOf": [
+        {
+          "type": "Note",
+          "name": "Option A"
+        },
+        {
+          "type": "Note",
+          "name": "Option B"
+        }
+      ]
+    }
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Question",
+      "name": "What is the answer?",
+      "closed": "2016-05-10T00:00:00Z"
+    }

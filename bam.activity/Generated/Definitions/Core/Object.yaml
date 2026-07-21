@@ -1,0 +1,44 @@
+Name: Object
+Uri: https://www.w3.org/ns/activitystreams#Object
+Notes: >-
+  Describes an object of any kind. The Object type serves as the base type for most of the other kinds of objects defined in the Activity Vocabulary, including other Core types such as
+              Activity,
+              IntransitiveActivity,
+              Collection and
+              OrderedCollection.
+Extends: 
+Properties:
+  - attachment
+  - attributedTo
+  - audience
+  - content
+  - context
+  - name
+  - endTime
+  - generator
+  - icon
+  - image
+  - inReplyTo
+  - location
+  - preview
+  - published
+  - replies
+  - startTime
+  - summary
+  - tag
+  - updated
+  - url
+  - to
+  - bto
+  - cc
+  - bcc
+  - mediaType
+  - duration
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Object",
+      "id": "http://www.test.example/object/1",
+      "name": "A Simple, non-specific object"
+    }

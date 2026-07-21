@@ -1,0 +1,8 @@
+Name: href
+Uri: https://www.w3.org/ns/activitystreams#href
+Notes: The target resource pointed to by a Link.
+Domain: Link
+Range:
+  - xsd:anyURI
+IsFunctional: true
+SubPropertyOf: 

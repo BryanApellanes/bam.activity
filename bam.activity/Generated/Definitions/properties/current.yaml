@@ -1,0 +1,9 @@
+Name: current
+Uri: https://www.w3.org/ns/activitystreams#current
+Notes: In a paged Collection, indicates the page that contains the most recently updated member items.
+Domain: Collection
+Range:
+  - CollectionPage
+  - Link
+IsFunctional: true
+SubPropertyOf: 

@@ -1,0 +1,16 @@
+Name: units
+Uri: https://www.w3.org/ns/activitystreams#units
+Notes: >-
+  Specifies the measurement units for the radius and altitude properties on a
+              Place object. If not specified, the default is assumed to be "m" for "meters".
+Domain: Place
+Range:
+  - cm
+  - feet
+  - inches
+  - km
+  - m
+  - miles
+  - xsd:anyURI
+IsFunctional: true
+SubPropertyOf: 

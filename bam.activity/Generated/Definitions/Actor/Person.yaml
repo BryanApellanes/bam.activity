@@ -1,0 +1,12 @@
+Name: Person
+Uri: https://www.w3.org/ns/activitystreams#Person
+Notes: Represents an individual person.
+Extends: Object
+Properties: []
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Person",
+      "name": "Sally Smith"
+    }

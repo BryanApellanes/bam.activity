@@ -1,0 +1,12 @@
+Name: anyOf
+Uri: https://www.w3.org/ns/activitystreams#anyOf
+Notes: >-
+  Identifies an inclusive option for a Question. Use of
+              anyOf implies that the Question can have multiple answers. To indicate that a Question can have only one answer, use
+              oneOf.
+Domain: Question
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

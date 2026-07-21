@@ -1,0 +1,11 @@
+Name: tag
+Uri: https://www.w3.org/ns/activitystreams#tag
+Notes: >-
+  One or more "tags" that have been associated with an objects. A tag can be any kind of Object. The key difference between
+              attachment and tag is that the former implies association by inclusion, while the latter implies associated by reference.
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

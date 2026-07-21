@@ -1,0 +1,9 @@
+Name: first
+Uri: https://www.w3.org/ns/activitystreams#first
+Notes: In a paged Collection, indicates the furthest preceeding page of items in the collection.
+Domain: Collection
+Range:
+  - CollectionPage
+  - Link
+IsFunctional: true
+SubPropertyOf: 

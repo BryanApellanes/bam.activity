@@ -1,0 +1,13 @@
+using System;
+
+namespace {{Namespace}}
+{
+    public partial interface I{{ClassName}}
+    {
+
+{{#each Properties}}
+{{> InterfaceProperty }}
+{{/each}}
+
+    }
+}

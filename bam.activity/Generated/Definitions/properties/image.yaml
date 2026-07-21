@@ -1,0 +1,9 @@
+Name: image
+Uri: https://www.w3.org/ns/activitystreams#image
+Notes: Indicates an entity that describes an image for this object. Unlike the icon property, there are no aspect ratio or display size limitations assumed.
+Domain: Object
+Range:
+  - Image
+  - Link
+IsFunctional: false
+SubPropertyOf: 

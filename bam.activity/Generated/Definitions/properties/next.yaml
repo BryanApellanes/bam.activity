@@ -1,0 +1,9 @@
+Name: next
+Uri: https://www.w3.org/ns/activitystreams#next
+Notes: In a paged Collection, indicates the next page of items.
+Domain: CollectionPage
+Range:
+  - CollectionPage
+  - Link
+IsFunctional: true
+SubPropertyOf: 

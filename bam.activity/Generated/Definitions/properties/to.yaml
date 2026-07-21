@@ -1,0 +1,9 @@
+Name: to
+Uri: https://www.w3.org/ns/activitystreams#to
+Notes: Identifies an entity considered to be part of the public primary audience of an Object
+Domain: Object
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

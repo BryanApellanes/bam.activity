@@ -1,0 +1,12 @@
+Name: Organization
+Uri: https://www.w3.org/ns/activitystreams#Organization
+Notes: Represents an organization.
+Extends: Object
+Properties: []
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "type": "Organization",
+      "name": "Example Co."
+    }

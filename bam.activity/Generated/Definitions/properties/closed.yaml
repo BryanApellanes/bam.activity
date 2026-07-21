@@ -1,0 +1,9 @@
+Name: closed
+Uri: https://www.w3.org/ns/activitystreams#closed
+Notes: Indicates that a question has been closed, and answers are no longer accepted.
+Domain: Question
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 

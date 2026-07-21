@@ -1,0 +1,15 @@
+        /// <summary>
+        /// {{Notes}}
+        /// </summary>
+        public {{{ReturnType}}}? {{ClassPropertyName}}
+        {
+            get
+            {
+                return Property<{{{ReturnType}}}>("{{PropertyName}}");
+            }
+            set
+            {
+                Property("{{PropertyName}}", value);
+            }
+        }
+

@@ -1,0 +1,28 @@
+using System;
+
+namespace {{Namespace}}
+{
+    /// <summary>
+    /// {{Notes}}
+    /// </summary>
+    public partial class {{ClassName}} : {{InterfaceList}}
+    {
+        public {{ClassName}}(IdHost idHost) : base(idHost)
+        {
+            this.StartCtorInit(idHost);
+{{#each Properties}}
+{{> AddProperty }}
+{{/each}}
+
+{{#each Examples}}
+            this.Example(@"{{{this}}}");
+{{/each}}
+            this.EndCtorInit(idHost);
+        }
+
+{{#each Properties}}
+{{> ClassProperty }}
+{{/each}}
+
+    }
+}

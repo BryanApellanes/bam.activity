@@ -1,0 +1,10 @@
+Name: describes
+Uri: https://www.w3.org/ns/activitystreams#describes
+Notes: >-
+  On a Profile object, the
+              describes property identifies the object described by the Profile.
+Domain: Profile
+Range:
+  - Object
+IsFunctional: true
+SubPropertyOf: 

@@ -1,0 +1,24 @@
+Name: RelationshipDescriptor
+Uri: https://www.w3.org/ns/activitystreams#Relationship
+Notes: "Describes a relationship between two individuals. The subject and\n                object properties are used to identify the connected individuals.\n              \n              \n                See 5.2 Representing Relationships Between Entities for additional information."
+Extends: Object
+Properties:
+  - subject
+  - object
+  - relationship
+Examples:
+  - >-
+    {
+      "@context": "https://www.w3.org/ns/activitystreams",
+      "summary": "Sally is an acquaintance of John",
+      "type": "Relationship",
+      "subject": {
+        "type": "Person",
+        "name": "Sally"
+      },
+      "relationship": "http://purl.org/vocab/relationship/acquaintanceOf",
+      "object": {
+        "type": "Person",
+        "name": "John"
+      }
+    }

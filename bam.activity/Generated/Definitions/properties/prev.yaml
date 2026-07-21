@@ -1,0 +1,9 @@
+Name: prev
+Uri: https://www.w3.org/ns/activitystreams#prev
+Notes: In a paged Collection, identifies the previous page of items.
+Domain: CollectionPage
+Range:
+  - CollectionPage
+  - Link
+IsFunctional: true
+SubPropertyOf: 

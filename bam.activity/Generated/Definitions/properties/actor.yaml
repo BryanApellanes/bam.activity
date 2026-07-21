@@ -1,0 +1,9 @@
+Name: actor
+Uri: https://www.w3.org/ns/activitystreams#actor
+Notes: Describes one or more entities that either performed or are expected to perform the activity. Any single activity can have multiple actors. The actor MAY be specified using an indirect Link.
+Domain: Activity
+Range:
+  - Object
+  - Link
+IsFunctional: false
+SubPropertyOf: 
