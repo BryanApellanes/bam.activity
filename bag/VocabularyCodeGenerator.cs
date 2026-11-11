@@ -42,9 +42,9 @@ namespace Bag
             {
                 file.Delete();
             }
-            if (!file.Directory.Exists)
+            if (file.Directory is { Exists: false } directory)
             {
-                file.Directory.Create();
+                directory.Create();
             }
             File.WriteAllText(file.FullName, classCode);
         }
@@ -58,9 +58,9 @@ namespace Bag
             {
                 file.Delete();
             }
-            if (!file.Directory.Exists)
+            if (file.Directory is { Exists: false } directory)
             {
-                file.Directory.Create();
+                directory.Create();
             }
             File.WriteAllText(file.FullName, classCode);
         }

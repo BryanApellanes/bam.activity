@@ -7,6 +7,7 @@ namespace Bag
         public PropertyModel(VocabularyPropertyDefinition definition, Dictionary<string, string> propertyTypeMap)
         {
             Definition = definition;
+            PropertyTypeMap = propertyTypeMap;
             if(definition.Range.Count > 0)
             {
                 RangeParams = string.Join(", ", definition.Range.Select(r => $"\"{r}\"").ToArray());

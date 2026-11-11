@@ -84,9 +84,10 @@ namespace Bag.Commands
                 {
                     File.Delete(file.FullName);
                 }
-                if(!Directory.Exists(file.DirectoryName))
+                string? directoryName = file.DirectoryName;
+                if (directoryName != null && !Directory.Exists(directoryName))
                 {
-                    Directory.CreateDirectory(file.DirectoryName);
+                    Directory.CreateDirectory(directoryName);
                 }
                 File.WriteAllText(file.FullName, content);
                 Message.PrintLine("Wrote {0}", file.FullName);
@@ -109,15 +110,7 @@ namespace Bag.Commands
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
-                CQ dom = CQ.Create(content);
-
-                CQ coreTypesTable = dom["#types > table"];
-                CQ coreTypes = CQ.Create(coreTypesTable)["tbody"];
-                Message.PrintLine("Found {0} tables", coreTypesTable.Length);
-                coreTypes.Each((i, body) =>
-                {
-                    ParseTypeDefinition(body, vocabularyDefinitions);
-                });
+                vocabularyDefinitions.AddRange(ParseTypeDefinitions(content, "#types > table"));
 
                 foreach (VocabularyTypeDefinition definition in vocabularyDefinitions)
                 {
@@ -148,14 +141,7 @@ namespace Bag.Commands
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
-                CQ dom = CQ.Create(content);
-
-                CQ activityTypesTable = dom["#activity-types > table"];
-                CQ activityTypes = CQ.Create(activityTypesTable)["tbody"];
-                activityTypes.Each((i, body) =>
-                {
-                    ParseTypeDefinition(body, vocabularyDefinitions);
-                });
+                vocabularyDefinitions.AddRange(ParseTypeDefinitions(content, "#activity-types > table"));
 
                 foreach (VocabularyTypeDefinition definition in vocabularyDefinitions)
                 {
@@ -186,14 +172,7 @@ namespace Bag.Commands
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
-                CQ dom = CQ.Create(content);
-
-                CQ actorTypesTable = dom["#actor-types > table"];
-                CQ actorTypes = CQ.Create(actorTypesTable)["tbody"];
-                actorTypes.Each((i, body) =>
-                {
-                    ParseTypeDefinition(body, vocabularyDefinitions);
-                });
+                vocabularyDefinitions.AddRange(ParseTypeDefinitions(content, "#actor-types > table"));
 
                 foreach (VocabularyTypeDefinition definition in vocabularyDefinitions)
                 {
@@ -225,14 +204,7 @@ namespace Bag.Commands
                 List<VocabularyTypeDefinition> vocabularyDefinitions = new List<VocabularyTypeDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
-                CQ dom = CQ.Create(content);
-
-                CQ actorTypesTable = dom["#object-types > table"];
-                CQ actorTypes = CQ.Create(actorTypesTable)["tbody"];
-                actorTypes.Each((i, body) =>
-                {
-                    ParseTypeDefinition(body, vocabularyDefinitions);
-                });
+                vocabularyDefinitions.AddRange(ParseTypeDefinitions(content, "#object-types > table"));
 
                 foreach (VocabularyTypeDefinition definition in vocabularyDefinitions)
                 {
@@ -264,15 +236,7 @@ namespace Bag.Commands
                 List<VocabularyPropertyDefinition> propertyDefinitions = new List<VocabularyPropertyDefinition>();
 
                 string content = await responnse.Content.ReadAsStringAsync();
-                CQ dom = CQ.Create(content);
-
-                //# properties > table
-                CQ propertiesTable = dom["#properties > table"];
-                CQ properties = CQ.Create(propertiesTable)["tbody"];
-                properties.Each((i, body) =>
-                {
-                    ParsePropertyDefinition(body, propertyDefinitions);
-                });
+                propertyDefinitions.AddRange(ParsePropertyDefinitions(content));
 
                 foreach (VocabularyPropertyDefinition definition in propertyDefinitions)
                 {
@@ -285,6 +249,40 @@ namespace Bag.Commands
             {
                 Message.PrintLine("Error: {0} - {1}", responnse.StatusCode, responnse.ReasonPhrase);
             }
+        }
+
+        /// <summary>
+        /// Reads the vocabulary type definitions from the tables matched by <paramref name="tableSelector"/>
+        /// (one definition per tbody) in an ActivityStreams vocabulary page.
+        /// </summary>
+        public static List<VocabularyTypeDefinition> ParseTypeDefinitions(string html, string tableSelector)
+        {
+            List<VocabularyTypeDefinition> definitions = new List<VocabularyTypeDefinition>();
+            CQ dom = CQ.Create(html);
+            CQ tables = dom[tableSelector];
+            CQ bodies = CQ.Create(tables)["tbody"];
+            bodies.Each((i, body) =>
+            {
+                ParseTypeDefinition(body, definitions);
+            });
+            return definitions;
+        }
+
+        /// <summary>
+        /// Reads the vocabulary property definitions from the properties tables (one definition per tbody)
+        /// in an ActivityStreams vocabulary page.
+        /// </summary>
+        public static List<VocabularyPropertyDefinition> ParsePropertyDefinitions(string html)
+        {
+            List<VocabularyPropertyDefinition> definitions = new List<VocabularyPropertyDefinition>();
+            CQ dom = CQ.Create(html);
+            CQ tables = dom["#properties > table"];
+            CQ bodies = CQ.Create(tables)["tbody"];
+            bodies.Each((i, body) =>
+            {
+                ParsePropertyDefinition(body, definitions);
+            });
+            return definitions;
         }
 
         private static void ParseTypeDefinition(IDomObject body, List<VocabularyTypeDefinition> coreTypeDefinitions)
