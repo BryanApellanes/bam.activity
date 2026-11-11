@@ -8,10 +8,10 @@ namespace Bag
 {
     public class VocabularyTypeDefinition
     {
-        public string Name { get; set; }
-        public string Uri { get; set; }
-        public string Notes { get; set; }
-        public string Extends { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Uri { get; set; }
+        public string? Notes { get; set; }
+        public string? Extends { get; set; }
         public HashSet<string> Properties { get; set; } = new HashSet<string>();
         public List<string> Examples { get; set; } = new List<string>();
     }

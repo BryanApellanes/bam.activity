@@ -9,13 +9,13 @@ namespace Bag
 {
     public class VocabularyPropertyDefinition
     {
-        public string Name { get; set; }
-        public string Uri { get; set; }
-        public string Notes { get; set; }
-        public string Domain { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Uri { get; set; }
+        public string? Notes { get; set; }
+        public string? Domain { get; set; }
         public List<string> Range { get; set; } = new List<string>();
         public bool IsFunctional { get; set; }
 
-        public string SubPropertyOf { get; set; }
+        public string? SubPropertyOf { get; set; }
     }
 }

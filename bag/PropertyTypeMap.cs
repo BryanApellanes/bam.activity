@@ -10,7 +10,7 @@ namespace Bag
     {
         public const string FilePath = "PropertyTypeMap.kvp";
 
-        public static Dictionary<string, string> Load(string filePath = null)
+        public static Dictionary<string, string> Load(string? filePath = null)
         {
             if (string.IsNullOrEmpty(filePath))
             {

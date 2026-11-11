@@ -180,24 +180,18 @@ namespace Bam.Activity.Tests.Unit
                 {
                     Note note = f.Create<Note>("my-note");
                     VocabularyObjectRoot noteByName = f.Create("Note", "note-2");
-                    bool invalidResult = f.TryCreate("InvalidTypeName", out VocabularyObjectRoot invalid);
-                    return new object[] { note, noteByName, invalidResult, invalid };
+                    bool invalidResult = f.TryCreate("InvalidTypeName", out VocabularyObjectRoot? invalid);
+                    return new FactoryOutcome(note, noteByName, invalidResult, invalid);
                 })
             .TheTest
-            .ShouldPass(because =>
+            .ShouldPass<FactoryOutcome>((because, _, outcome) =>
             {
-                object[] results = (object[])because.Result;
-                Note note = (Note)results[0];
-                VocabularyObjectRoot noteByName = (VocabularyObjectRoot)results[1];
-                bool invalidResult = (bool)results[2];
-                object invalid = results[3];
-
-                because.ItsTrue("Create<Note> returns a Note", note != null);
-                because.ItsTrue("Create<Note> id is formatted", "http://example.org/Note/my-note".Equals(note.Property("id")));
-                because.ItsTrue("Create by name returns a Note", noteByName is Note);
-                because.ItsTrue("Create by name id is formatted", "http://example.org/Note/note-2".Equals(noteByName.Property("id")));
-                because.ItsTrue("TryCreate with invalid name returns false", !invalidResult);
-                because.ItsTrue("TryCreate with invalid name outputs null", invalid == null);
+                because.ItsTrue("Create<Note> returns a Note", outcome.Note != null);
+                because.ItsTrue("Create<Note> id is formatted", "http://example.org/Note/my-note".Equals(outcome.Note?.Property("id")));
+                because.ItsTrue("Create by name returns a Note", outcome.NoteByName is Note);
+                because.ItsTrue("Create by name id is formatted", "http://example.org/Note/note-2".Equals(outcome.NoteByName?.Property("id")));
+                because.ItsTrue("TryCreate with invalid name returns false", !outcome.InvalidResult);
+                because.ItsTrue("TryCreate with invalid name outputs null", outcome.Invalid == null);
             })
             .SoBeHappy()
             .UnlessItFailed();
@@ -270,37 +264,43 @@ namespace Bam.Activity.Tests.Unit
                     JObject parsed = JObject.Parse(json);
                     bool actorIsObject = parsed["actor"] is JObject;
                     bool objectIsObject = parsed["object"] is JObject;
-                    string actorType = parsed["actor"]?["type"]?.ToString();
-                    string objectType = parsed["object"]?["type"]?.ToString();
+                    string? actorType = parsed["actor"]?["type"]?.ToString();
+                    string? objectType = parsed["object"]?["type"]?.ToString();
 
                     // Round-trip: load JSON into a new Create
                     Create loaded = new Create(host);
                     loaded.LoadJson(json);
-                    object loadedActor = loaded.Property("actor");
-                    object loadedObject = loaded.Property("object");
+                    object? loadedActor = loaded.Property("actor");
+                    object? loadedObject = loaded.Property("object");
 
-                    return new object[]
-                    {
+                    return new NestedObjectsOutcome(
                         actorIsObject, objectIsObject,
                         actorType, objectType,
                         loadedActor is VocabularyObjectRoot,
-                        loadedObject is VocabularyObjectRoot,
-                        json
-                    };
+                        loadedObject is VocabularyObjectRoot);
                 })
             .TheTest
-            .ShouldPass(because =>
+            .ShouldPass<NestedObjectsOutcome>((because, _, outcome) =>
             {
-                object[] r = (object[])because.Result;
-                because.ItsTrue("actor serialized as JSON object", (bool)r[0]);
-                because.ItsTrue("object serialized as JSON object", (bool)r[1]);
-                because.ItsTrue("actor type is Person", "Person".Equals(r[2]));
-                because.ItsTrue("object type is Note", "Note".Equals(r[3]));
-                because.ItsTrue("loaded actor is VocabularyObjectRoot", (bool)r[4]);
-                because.ItsTrue("loaded object is VocabularyObjectRoot", (bool)r[5]);
+                because.ItsTrue("actor serialized as JSON object", outcome.ActorIsObject);
+                because.ItsTrue("object serialized as JSON object", outcome.ObjectIsObject);
+                because.ItsTrue("actor type is Person", "Person".Equals(outcome.ActorType));
+                because.ItsTrue("object type is Note", "Note".Equals(outcome.ObjectType));
+                because.ItsTrue("loaded actor is VocabularyObjectRoot", outcome.LoadedActorIsVocabularyObject);
+                because.ItsTrue("loaded object is VocabularyObjectRoot", outcome.LoadedObjectIsVocabularyObject);
             })
             .SoBeHappy()
             .UnlessItFailed();
         }
+
+        private sealed record FactoryOutcome(Note? Note, VocabularyObjectRoot? NoteByName, bool InvalidResult, VocabularyObjectRoot? Invalid);
+
+        private sealed record NestedObjectsOutcome(
+            bool ActorIsObject,
+            bool ObjectIsObject,
+            string? ActorType,
+            string? ObjectType,
+            bool LoadedActorIsVocabularyObject,
+            bool LoadedObjectIsVocabularyObject);
     }
 }

@@ -17,7 +17,7 @@ namespace Bag
         public VocabularyTypeDefinition[] TypeDefinitions => _typeDefinitions.Values.ToArray();
         public VocabularyPropertyDefinition[] PropertyDefinitions => _propertyDefinitions.Values.ToArray();
 
-        public VocabularyPropertyDefinition? GetPropertyDefinition(string propertyName)
+        public VocabularyPropertyDefinition GetPropertyDefinition(string propertyName)
         {
             if (_propertyDefinitions.ContainsKey(propertyName))
             {
