@@ -8,9 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bam.tests\bam.tests.csproj" />
     <ProjectReference Include="..\..\bam.base\bam.base\bam.base.csproj" />
     <ProjectReference Include="..\..\bam.console\bam.console\bam.console.csproj" />
+    <ProjectReference Include="..\..\bam.data.repositories\bam.data.repositories\bam.data.repositories.csproj" />
+    <ProjectReference Include="..\..\bam.shell\bam.shell\bam.shell.csproj" />
+    <ProjectReference Include="..\..\bam.test\bam.test\bam.test.csproj" />
     <ProjectReference Include="..\bam.activity\bam.activity.csproj" />
   </ItemGroup>
 
